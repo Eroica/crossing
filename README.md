@@ -78,10 +78,15 @@ in German and English respectively:
     cat    -0.000362  0.003718 -0.004984  0.004327  0.002802 -0.004585 -0.001044 ...
 
 We can now see how `crossing` would transform the vector for `katze` into the
-English vector space, using the transformation matrix that was created some time ago:
+English vector space, using the transformation matrix that was just created:
 
     >>> vt * "katze"
 
+Summary
+-------
 
-
-
+Most of the time, when using vector information from `word2vec` and `sklearn.Linear_Models`,
+our algorithm fails miserably to create an adequate transformation matrix. One
+reason might be that the information provided by `word2vec` is not useful for creating
+a vector space model of a language, since `word2vec` straightforwardly tries to
+represent a word by a numerical value.

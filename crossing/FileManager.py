@@ -65,6 +65,6 @@ def readWord2Vec(vectors_file):
         for i, line in enumerate(fin):
             vector = [x for x in line.split() if x]
             if i > 1:
-                vectorDict[vector[0]] = [float(x) * 1000 for x in vector[1:]]
+                vectorDict[vector[0]] = [float(x) for x in vector[1:]]
 
     return vectorDict
