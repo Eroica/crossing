@@ -13,7 +13,6 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 from sklearn import linear_model
-import cPickle as pickle
 import numpy as np
 import FileManager
 import sys

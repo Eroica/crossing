@@ -1,0 +1,7 @@
+junge   boy
+mensch  human
+baum    tree
+apfel   apple
+computer    mac
+buch    book
+code    code

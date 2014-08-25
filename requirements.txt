@@ -2,3 +2,4 @@ crossing
 numpy
 scipy
 scikit-learn
+nose

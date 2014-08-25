@@ -42,4 +42,46 @@ with a small software project.
 Usage
 -----
 
-tbd
+`crossing`'s usage can easily be learned by using it interactively in a
+Python interpreter. Make sure to install `crossing` and its dependencies,
+open a Python interpreter and import it:
+
+    >>> import crossing
+
+There is some example data prepared in the `res/` directory:
+
+    res/
+    ├── de.txt
+    ├── de_vectors.txt
+    ├── dict.txt
+    ├── en.txt
+    └── en_vectors.txt
+
+Of these files, `de_vectors.txt`, `en_vectors.txt` and `dict.txt` are of
+particular interest. They are based on the corpus "Town Musicians of Bremen"
+found in `de.txt/en.txt`. Let's create a `VectorTransformator` object that will
+represent vector transformations from German to English using `dict.txt`:
+
+    >>> vt = crossing.VectorManager.VectorTransformator("res/dict.txt", "res/de_vectors.txt", "res/en_vectors.txt")
+
+`VectorTransformator` only wraps several transformation matrices. This way you
+could compare different transformation models and different accuracies. We now 
+need to create a transformation matrix -- by default, `sklearn.Linear_Model.Lasso`
+with `alpha = 0.1` is used (refer to the `docstring` to see other models):
+
+    >>> vt.createTransformationMatrix()
+
+Let's have a look at the word `katze` (German for *cat*). Its vector form is,
+in German and English respectively:
+
+    katze   0.000607 -0.005260  0.001268 -0.001395 -0.004689  0.004297 -0.002352 ...
+    cat    -0.000362  0.003718 -0.004984  0.004327  0.002802 -0.004585 -0.001044 ...
+
+We can now see how `crossing` would transform the vector for `katze` into the
+English vector space, using the transformation matrix that was created some time ago:
+
+    >>> vt * "katze"
+
+
+
+
