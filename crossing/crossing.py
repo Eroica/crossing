@@ -19,13 +19,14 @@ import FileManager
 import sys
 
 class TransformationMatrix(object):
-    """A class
-
+    """A class representing a transformation matrix from vector space A to
+    vector space B.
     """
 
 
     def __init__(self, T, b, model, alpha):
-        """doc
+        """Creates a transformation matrix using the results of
+        sklearn.linear_model.
         """
 
         self.T = (np.matrix(T))
@@ -34,22 +35,39 @@ class TransformationMatrix(object):
         self.alpha = alpha
 
     def __mul__(self, v):
+        """Overrides the * operator to allow multiplication with NumPy
+        matrices/vectors.
+        """
+
         return self.T * v + self.b
 
 
 class VectorTransformator(object):
-    """A flexible object that creates transformations matrices
+    """A flexible object that can hold several transformation matrices from
+    vector space V into vector space W, using the dictionary in self.Dictionary.
+    self.V and self.W are dictionaries that contain vectors in the following
+    format:
 
+        "word" = [0.1, 0.2, 0.3, ...]
 
+    self.Models contains all transformation matrices that can be used to
+    transform a given vector by using the overridden ``*'' operator.
+
+    When given a vector ``v'', the default behaviour of ``VectorTransformator''
+    is to return a tuple containing the result of ``v'' multiplicated with all
+    models from self.Models. If only a single model should be used, the ``[]''
+    operator can be used to select that model.
     """
 
 
     def __init__(self, dict_file, vector1_file, vector2_file, isWord2Vec=True):
-        """hmm
+        """Creates a ``VectorTransformator'' using the provided files. By
+        default, ``VectorTransformator'' assumes to work with files from
+        ``word2vec''.
         """
         
         self.Dictionary = FileManager.readDictionary(dict_file)
-        self.Models = []        # consists of all vector transformation models
+        self.Models = []        # consists of all transformation matrices
 
         if isWord2Vec:
             self.V = FileManager.readWord2Vec(vector1_file)
@@ -59,7 +77,12 @@ class VectorTransformator(object):
             self.W = FileManager.readVectors(vector2_file)
 
     def createTransformationMatrix(self, model="Lasso", alpha=0.1):
-        """Creates a transformation matrix from vs1 to vs2.
+        """Creates a transformation matrix using the provided model and alpha
+        value. Possible models are:
+
+            *   "Lasso" for linear_model.Lasso,
+            *   "ridge" for linear_model.Ridge,
+            *   "net" for linear_model.ElasticNet
         """
 
         if model == "ridge":
@@ -104,54 +127,68 @@ class VectorTransformator(object):
         self.Models.append(TransformationMatrix(T, b, model, alpha))
 
     def translateAllVectors(self, intoFile=None):
-        """
+        """Using all vector transformation matrices found in self.Models,
+        attemps to translate all vectors from self.V into self.W. If a filename
+        is provided, the results will be written into that file.
         """
 
         
-        allResults = {}
-        results = {}
+        TransformationResults = {}
+        VectorResults = {}
         for model in self.Models:
             for v in self.V:
-                results[v] = model * self.prepareVector(self.V[v])
-            allResults[model] = results
+                VectorResults[v] = model * self.prepareVector(self.V[v])
+            TransformationResults[model] = VectorResults
         
         if intoFile:
             with open(intoFile, "w") as fout:
-                for model in allResults:
+                for model in TransformationResults:
                     print >> fout, "### " + str(model.model) + "_" + str(model.alpha)
                     
-                    for v in allResults[model]:
+                    for v in TransformationResults[model]:
                         print >> fout, v + " " + str(self.V[v])
-                        vt = allResults[model][v].flatten()
+                        vt = TransformationResults[model][v].flatten()
                         print >> fout, " ---> " + str(vt) + "\n"
                     
                     print >> fout, "\n"
 
-        return allResults
+        return TransformationResults
 
 
     def prepareVector(self, v):
-        """Prepares a vector from a vector space dictonary to use with
-        addition/multiplication.
+        """Prepares a vector in the following format:
+
+            [0.1, 0.2, 0.3, ...]
+
+        for use with NumPy multiplication.
         """
         
         return np.transpose(np.matrix(v))
 
     def __mul__(self, v):
+        """Attempts to translate a word from one vector space to another, using
+        all models found in self.Models.
+
+        ``word'' can either be
+
+            *   a word found in self.V so that its components from self.V are
+                used or
+            *   a vector in the format [0.1, 0.2, 0.3, ...]
+        """
+
         if self.Models == []:
             print "You first have to create some models!"
             return
 
         if type(v) == str:
-            if v not in self.Dictionary:
-                print v + " not found in Dictionary. Aborting ..."
+            if v not in self.V:
+                print v + " not found in vector space. Aborting ..."
                 return
             
             results = [model * self.prepareVector(self.V[v]) for model in self.Models]
             return tuple(results)
 
         if type(v) == list:
-            print v
             results = [model * self.prepareVector(v) for model in self.Models]
             return tuple(results)
 
