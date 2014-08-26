@@ -1,0 +1,12 @@
+<projekt> 
+        <titel>CrOssinG - CompaRing Of AngliciSmS IN German </titel> 
+        <typ>Softwareprojekt</typ> 
+        <version>1.0</version> 
+        <autoren>Sebastian Spaar, Dennis Ulmer</autoren>
+	<dozent> Dr. Yannick Versley >
+        <angefangen>1.5.2014</angefangen>
+        <abgabe>22.7.2014</abgabe> 
+        <veranstaltung>Softwareprojekt Sommersemester 2014</veranstaltung>
+        <institution>Institut fuer Computerlinguistik, Ruprecht-Karls-Universitaet 		Heidelberg </institution>
+        <abstract>CrOssinG untersucht den Wandel der Bedeutung von 		Anglizismen in der deutschen Sprache mithilfe von Wortvektoren. 		</abstract> 
+</projekt>
