@@ -1,43 +1,56 @@
 ===========
-Towel Stuff
+crossing
 ===========
 
-Towel Stuff provides such and such and so and so. You might find
-it most useful for tasks involving <x> and also <y>. Typical usage
-often looks like this::
+crossing simplifies the creation of transformation matrices using scikit-learn.
+In theory, crossing can create a transformation matrix that maps a vector
+in language A to language B, with vector data provided by programs such as
+word2vec.
 
-    #!/usr/bin/env python
+Requirements
+------------
 
-    from towelstuff import location
-    from towelstuff import utils
+Three files are needed for the generation of transformation matrices:
 
-    if utils.has_towel():
-        print "Your towel is located:", location.where_is_my_towel()
+1. A vector space model for language A
+2. A vector space model for language B
+3. A dictionary file A->B
 
-(Note the double-colon and 4-space indent formatting above.)
+The word vectors should like this:
 
-Paragraphs are separated by blank lines. *Italics*, **bold**,
-and ``monospace`` look like this.
+    a 0.1 0.2 0.3
+    word 1.0 2.0 3.0
+    another 1.1 2.2 3.3
+    thing 2.0 3.0 4.0
+    ...
 
+The dictionary file should look like this:
 
-A Section
-=========
+    word_1 translation_1
+    ...
 
-Lists look like this:
+Usage
+-----
 
-* First
+It is best used inside the Python interpreter or another script.
 
-* Second. Can be multiple lines
-  but must be indented properly.
+Depending on accuracy and regression model, several transformation matrices
+can be collected in a ``VectorTransformator'' object:
 
-A Sub-Section
--------------
+    >>> vt = crossing.VectorManager.VectorTransformator("res/dict.txt", "res/de_vectors.txt", "res/en_vectors.txt")
 
-Numbered lists look like you'd expect:
+A transformation matrix can then be created using:
 
-1. hi there
+    >>> vt.createTransformationMatrix()
 
-2. must be going
+The matrix is then represented by a ``TransformationMatrix'' object. Both
+``TransformationMatrix'' and ``VectorTransformator'' can then be used with
+other NumPy data (matrices/vectors) using standard multiplication.
 
-Urls are http://like.this and links can be
-written `like this <http://www.example.com/foo/bar>`_.
+For instance, to transform a vector to language B:
+
+    >>> vt * "word"
+
+Or:
+
+    >>> vt * [1.0, 2.0, 3.0]
