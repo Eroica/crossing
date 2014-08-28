@@ -33,7 +33,9 @@ Installation
 
 *   NumPy
 *   SciPy
-*   Scikit-Learn
+*   scikit-Learn
+*   nose (a requirement of scikit-learn, sometimes needed for installation)
+*   BeautifulSoup (for the scripts found in `bin/`)
 
 Use `pip install -r requirements.txt` to install `crossing` and its requirements.
 Using a virtual environment is recommended for not spamming your system packages
