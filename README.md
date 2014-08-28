@@ -48,13 +48,16 @@ open a Python interpreter and import it:
 
     >>> import crossing
 
-There is some example data prepared in the `res/` directory:
+There is some example data prepared in the `opt/` directory:
 
-    res/
+    opt
     ├── de.txt
+    ├── de_dummy.txt
     ├── de_vectors.txt
     ├── dict.txt
+    ├── dict_dummy.txt
     ├── en.txt
+    ├── en_dummy.txt
     └── en_vectors.txt
 
 Of these files, `de_vectors.txt`, `en_vectors.txt` and `dict.txt` are of
@@ -62,7 +65,7 @@ particular interest. They are based on the corpus "Town Musicians of Bremen"
 found in `de.txt/en.txt`. Let's create a `VectorTransformator` object that will
 represent vector transformations from German to English using `dict.txt`:
 
-    >>> vt = crossing.VectorManager.VectorTransformator("res/dict.txt", "res/de_vectors.txt", "res/en_vectors.txt")
+    >>> vt = crossing.VectorManager.VectorTransformator("opt/dict.txt", "opt/de_vectors.txt", "opt/en_vectors.txt")
 
 `VectorTransformator` only wraps several transformation matrices. This way you
 could compare different transformation models and different accuracies. We now 
@@ -74,13 +77,23 @@ with `alpha = 0.1` is used (refer to the `docstring` to see other models):
 Let's have a look at the word `katze` (German for *cat*). Its vector form is,
 in German and English respectively:
 
-    katze   0.000607 -0.005260  0.001268 -0.001395 -0.004689  0.004297 -0.002352 ...
-    cat    -0.000362  0.003718 -0.004984  0.004327  0.002802 -0.004585 -0.001044 ...
+    katze 0.006136 -0.052587 0.012688 -0.014030 -0.046991 0.042845 -0.023529 -0.001199 0.034139 -0.003296 
+    cat -0.067114 0.033746 0.020565 0.032246 0.113999 0.016741 -0.021005 0.043264 0.060346 -0.008794 
 
 We can now see how `crossing` would transform the vector for `katze` into the
 English vector space, using the transformation matrix that was just created:
 
     >>> vt * "katze"
+    (matrix([[-0.01070324],
+            [-0.00699281],
+            [ 0.00408598],
+            [ 0.00868466],
+            [ 0.03515451],
+            [-0.00209241],
+            [-0.02295664],
+            [ 0.01283001],
+            [ 0.01598752],
+            [-0.00638645]]),)
 
 Summary
 -------
@@ -88,5 +101,8 @@ Summary
 Most of the time, when using vector information from `word2vec` and `sklearn.Linear_Models`,
 our algorithm fails miserably to create an adequate transformation matrix. One
 reason might be that the information provided by `word2vec` is not useful for creating
-a vector space model of a language, since `word2vec` straightforwardly tries to
-represent a word by a numerical value.
+a vector space model of a language, since `word2vec` is more of a straightforward
+approach of representing words by a numerical value.
+
+Using dummy data, like the `_dummy` files found in `opt/`, creating transformation
+matrices works fine.
