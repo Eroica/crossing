@@ -99,6 +99,33 @@ class VectorTransformator(object):
             self.V = FileManager.readVectors(vector1_file)
             self.W = FileManager.readVectors(vector2_file)
 
+    def translate(self, word, index=0):
+        """Takes a word from vector Space V, maps it into W and returns the
+        closest vector in W.
+        """
+
+        v = self.V[word]
+        translatedWord = v * self.Model[index]
+
+        res = []
+        for vector in self.W:
+            res.append(calculateAngle(word, vector))
+
+        i = res.index(min(res))
+
+        return self.W[i]
+
+    def calculateAngle(self, v, w):
+        c = np.dot(v, w)/norm(v)/norm(w) # -> cosine of the angle
+        angle = arccos(c) # if you really want the angle
+        if np.isnan(angle):
+            if (v == w).all():
+                return 0.0
+            else:
+                return np.pi
+
+        return angle
+
     def createTransformationMatrix(self, model="Lasso", alpha=0.1):
         """Creates a transformation matrix using the provided model and alpha
         value. Possible models are:
