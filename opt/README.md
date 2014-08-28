@@ -4,10 +4,11 @@ WikiExtractor.py
 `crossing` ships with a special version of `WikiExtractor.py` that
 is able to extract characters based on its unicode group.
 
-The original `WikiExtractor.py` needs to be patched first with the patch
-found in this directory:
+A file with the changes to the original `WikiExtractor.py` can be found in this
+directory.
 
-    patch < extractUnigroups.diff
+Usage
+-----
 
 A unicode group contains characters with similiar features, for instance:
 
