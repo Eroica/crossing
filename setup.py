@@ -16,5 +16,6 @@ setup(
         "scipy",
         "scikit-learn",
         "nose",
+        "beautiful-soup",
     ],
 )

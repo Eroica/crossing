@@ -193,17 +193,3 @@ class VectorTransformator(object):
 
     def __getitem__(self, index):
         return self.Models[index]
-
-if __name__ == "__main__":
-    print "################################"
-    vt = VectorTransformator("res/dict.txt", "res/de_small.txt", "res/en_small.txt")
-    
-    vt.createTransformationMatrix()
-    vt.createTransformationMatrix("Lasso", 0.01)
-    vt.createTransformationMatrix("Lasso", 0.5)
-
-    vt.translateAllVectors("results.txt")
-    # print vt * "apfel"
-    # print vt.V["apfel"]
-    # print vt * [7.0, 2.0, 8.0, 9.0, 8.0, 7.0, 3.0, 6.0, 4.0, 7.0]
-    # print vt.Models[2] * vt.prepareVector([7.0, 2.0, 8.0, 9.0, 8.0, 7.0, 3.0, 6.0, 4.0, 7.0])
