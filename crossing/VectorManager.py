@@ -17,6 +17,30 @@ import numpy as np
 import FileManager
 import sys
 
+class tm(object):
+    """A class representing a transformation matrix from vector space A to
+    vector space B.
+    """
+
+
+    def __init__(self, T, b, model, alpha):
+        """Creates a transformation matrix using the results of
+        sklearn.linear_model.
+        """
+
+        self.T = T
+        self.b = np.transpose(np.matrix(b))
+        self.model = model
+        self.alpha = alpha
+
+    def __mul__(self, v):
+        """Overrides the * operator to allow multiplication with NumPy
+        matrices/vectors.
+        """
+
+        return self.T * v + self.b
+
+
 class TransformationMatrix(object):
     """A class representing a transformation matrix from vector space A to
     vector space B.
@@ -153,6 +177,44 @@ class VectorTransformator(object):
 
         return TransformationResults
 
+    def learn_matrix(self, model="Lasso", alpha=0.1):
+
+        subDict = [s for s in self.Dictionary if s in self.V and self.Dictionary[s] in self.W]
+
+        vectors_de = [self.V[word] for word in subDict]
+        vectors_en = [self.W[self.Dictionary[word]] for word in subDict]
+
+        X = np.zeros((len(vectors_de), len(vectors_de[0])))
+
+        for i, v in enumerate(vectors_de):
+            X[i]=v
+        
+        Y = np.zeros((len(vectors_en), len(vectors_en[0])))
+        
+        for i, v in enumerate(vectors_en):
+            Y[i]=v
+
+        # jetzt konstruieren wir W
+        W = np.zeros((len(vectors_en[0]), len(vectors_de[0])))
+        b = np.zeros((len(vectors_en[0])))
+
+        for j in xrange(len(vectors_en[0])):
+            y_j = [x[j] for x in vectors_en]
+            
+            if model == "ridge":
+                clf = linear_model.Ridge(alpha)
+            elif model == "net":
+                clf = linear_model.ElasticNet(alpha)
+            else:
+                clf = linear_model.Lasso(alpha)
+
+            clf.fit(X,y_j)
+            W[j] = clf.coef_
+            b[j] = clf.intercept_
+
+
+        print b
+        self.Models.append(tm(W, b, model, alpha))
 
     def prepareVector(self, v):
         """Prepares a vector in the following format:
@@ -193,3 +255,27 @@ class VectorTransformator(object):
 
     def __getitem__(self, index):
         return self.Models[index]
+
+if __name__ == "__main__":
+    vt = VectorTransformator("../opt/dict.txt", "../opt/de_vectors.txt", "../opt/en_vectors.txt")
+    vt.createTransformationMatrix()
+    wt = VectorTransformator("../opt/dict.txt", "../opt/de_vectors.txt", "../opt/en_vectors.txt")
+    wt.learn_matrix("Lasso", 0.01)
+    
+    print "alt"
+    print vt * vt.V["esel"]
+    print "neu"
+    print wt * wt.V["esel"]
+    # print wt * wt.V["baum"]
+
+    # X = wt.learn_matrix("Lasso", 0.01)
+    # print "_________####___"
+    # v = np.transpose(np.matrix(wt.V["apfel"]))
+    # y = X[0] * v
+    # c = np.transpose(np.matrix(X[1]))
+    # print c
+    # print y
+    # print "___"
+    # print y + c
+
+
