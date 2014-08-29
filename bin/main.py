@@ -40,10 +40,10 @@ def main():
     wh("\t\tCrOssinG: CompaRing Of AngliciSmS IN German", 75)
 
     # paths
-    ANGLICISMS_PATH = "../res/out/anglicisms.txt"
-    DICTENTRIES_PATH = "../res/out/dictEntries.txt"
-    FALSE_FRIENDS_PATH = "../res/out/false_friends.txt"
-    SUBSET_PATH = "../res/out/subset.txt"
+    ANGLICISMS_PATH = "../res/anglicisms.txt"
+    DICTENTRIES_PATH = "../res/dictEntries.txt"
+    FALSE_FRIENDS_PATH = "../res/false_friends.txt"
+    SUBSET_PATH = "../res/subset.txt"
 
     # 1.: Extracts anglicisms and their translations
     w("+++++ Anglicisms (1/3) +++++")
