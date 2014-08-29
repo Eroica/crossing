@@ -32,13 +32,19 @@ from file_handling import readTupleFileToDict, readTupleFile, \
 import cPickle as pickle
 from scrn_out import w, wh, wil, fl, cl
 
-from vt import VectorTransformator
+
+### import anpassen:
+# from vt import VectorTransformator
+import VectorManager
+
 
 #------------------------------ Main functions --------------------------------
 
 def main():
 	cl()
 	wh("\t\tCrOssinG: CompaRing Of AngliciSmS IN German", 75)
+
+	### nicht vergessen die pfade zu ändern
 	dictionary = readDictionary("../res/out/dictEntries.txt")
 	anglicisms = readTupleFile("../res/out/anglicisms.txt")
 	devectors = pickle.load(open("../tmp/DE_VEC.bin"))
@@ -54,20 +60,67 @@ def main():
 	models = []
 	i = 1
 	w("Creating VectorTransformators...\n")
-	for tuple_ in model_paras:
-		vt = VectorTransformator()
-		# print devectors; time.sleep(3)
-		# print envectors; time.sleep(3)
 
-		vt.M = vt.createTransformationMatrix(devectors, envectors,\
-			 dictionary, alpha=tuple_[1], model=tuple_[0], printErrors=False)
+	### zuallererst ein VectorTransformator-Objekt, das mehrere Modelle halten kann
+	vt = VectorManager.VectorTransformator()
+	### da die nötigen vektoren schon oben erzeugt wurden, werden keine dateien übergeben
+	### stattdessen müssen die vektoren separat in das objekt gespeichert werden.
+	### änder den namen von dem deutsch-englisch wörterbuch (dictionary) am besten
+	### in etwas anderes um, sonst ist es zu ähnlich an dem python-objekt "dict"
+	vt.Dictionary = dictionary
+	vt.V = devectors
+	vt.W = envectors
+
+	for tuple_ in model_paras:
+		### transformations-matrix mit der methode createTransformationMatrix() erstellen
+		### die sieht so aus:
+		### def createTransformationMatrix(self, model="Lasso", alpha=0.1):
+		### also zuerst den namen des modells übergeben, dann den alphawert
+		### wörterbuch und vektoren müssen nicht übergeben werden, da sie im
+		### vt objekt enthalten sind.
+		### printErrors geht natürlich leider auch nicht mehr
+		vt.createTransformationMatrix(tuple_[0], tuple_[1])
+		
+		### wenn du auf die transformationsmatrizen zugreifen willst, mach das am besten so:
+		### vt[0].T
+		### über [0..] wird das 1., .. model von vt angesprochen. das modell selbst
+		### enthält die variable "T", die die matrix enthält
+		### vergiss nicht dass zu jedem modell nicht nur eine matrix gehört,
+		### sondern auch ein absolutes glied ...
+		### die folgende zeile könnte daher entfallen:
 		matrix = vt.M
+		
 		w("VectorTransformator Nr. %i with Model=%s and alpha=%g has been"
 		  " created\n" %(i, tuple_[0], tuple_[1]))
+		
+		### hier genauso: wenn du auf die einzelnen modelle zugreifen willst,
+		### benutz einfach vt[x].
+		### jedes dieser modelle hat auch die informationen zu modell und alpha gespeichert
+		### sagen wir vt[1] ist ein modell. dann hat es folgende variablen:
+		### vt[1].T :: matrix
+		### vt[1].b :: absolutes glied
+		### vt[1].model :: name des models (string)
+		### vt[1].alpha :: alpha-wert (float)
+		### grundsätzlich kannst du es aber auch so lassen
+		### später benutzt du ja die "models" variable weiter, also falls es zu kompliziert wird,
+		### lass es einfach so wie jetzt
+		### nur musst du bedenken, dass ich die erstellung von   vt   außerhalb
+		### der for-schleife gesetzt habe. es gibt also nur EIN vt objekt
+		### dieses vt objekt enthält, in der variablen vt.models, mehrere transformationsmatrizen
+		### wenn du diese transformationsmatrizen vergleichen willst, solltest du also
+		### vt.models an funktionen übergeben oder
+		### vt an sich und die funktionen greifen dann auf vt.models zu
 		models.append((tuple_[0], tuple_[1], vt, matrix))
+
 		i += 1
+
+
 	w("Creating VectorTransformators...Complete!\n\n")
 
+
+	### wie oben schon erwähnt: die "models" variable hier kann im prinzip ersetzt werden,
+	### indem einfach das    vt   objekt übergeben wird.
+	### vt hat ja auch die deutschen und englischen vektoren in vt.V und vt.W
 	top_model = compareMatrices(false_friends, models, devectors, envectors)
 	
 	falseFriendsCheck(false_friends, top_model[2] , devectors, envectors, dictionary, 50)

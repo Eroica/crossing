@@ -17,7 +17,7 @@ import numpy as np
 import FileManager
 import sys
 
-class tm(object):
+class TransformationMatrix(object):
     """A class representing a transformation matrix from vector space A to
     vector space B.
     """
@@ -40,31 +40,6 @@ class tm(object):
 
         return self.T * v + self.b
 
-
-class TransformationMatrix(object):
-    """A class representing a transformation matrix from vector space A to
-    vector space B.
-    """
-
-
-    def __init__(self, T, b, model, alpha):
-        """Creates a transformation matrix using the results of
-        sklearn.linear_model.
-        """
-
-        self.T = (np.matrix(T))
-        self.b = np.transpose(np.matrix(b))
-        self.model = model
-        self.alpha = alpha
-
-    def __mul__(self, v):
-        """Overrides the * operator to allow multiplication with NumPy
-        matrices/vectors.
-        """
-
-        return self.T * v + self.b
-
-
 class VectorTransformator(object):
     """A flexible object that can hold several transformation matrices from
     vector space V into vector space W, using the dictionary in self.Dictionary.
@@ -82,6 +57,14 @@ class VectorTransformator(object):
     operator can be used to select that model.
     """
 
+    def __init__(self):
+        """If no files are specified when creating a VectorTransformator,
+        self.Dictionary, self.V and self.W have to be filled with dictionaries.
+        """
+        self.Dictionary = {}
+        self.Models = []
+        self.V = {}
+        self.W = {}
 
     def __init__(self, dict_file, vector1_file, vector2_file, isWord2Vec=True):
         """Creates a ``VectorTransformator'' using the provided files. By
@@ -99,34 +82,44 @@ class VectorTransformator(object):
             self.V = FileManager.readVectors(vector1_file)
             self.W = FileManager.readVectors(vector2_file)
 
-    def translate(self, word, index=0):
-        """Takes a word from vector Space V, maps it into W and returns the
-        closest vector in W.
-        """
-
-        v = self.V[word]
-        translatedWord = v * self.Model[index]
-
-        res = []
-        for vector in self.W:
-            res.append(calculateAngle(word, vector))
-
-        i = res.index(min(res))
-
-        return self.W[i]
-
-    def calculateAngle(self, v, w):
-        c = np.dot(v, w)/norm(v)/norm(w) # -> cosine of the angle
-        angle = arccos(c) # if you really want the angle
-        if np.isnan(angle):
-            if (v == w).all():
-                return 0.0
-            else:
-                return np.pi
-
-        return angle
-
     def createTransformationMatrix(self, model="Lasso", alpha=0.1):
+
+        subDict = [s for s in self.Dictionary if s in self.V and self.Dictionary[s] in self.W]
+
+        vectors_de = [self.V[word] for word in subDict]
+        vectors_en = [self.W[self.Dictionary[word]] for word in subDict]
+
+        X = np.zeros((len(vectors_de), len(vectors_de[0])))
+
+        for i, v in enumerate(vectors_de):
+            X[i]=v
+        
+        Y = np.zeros((len(vectors_en), len(vectors_en[0])))
+        
+        for i, v in enumerate(vectors_en):
+            Y[i]=v
+
+        # jetzt konstruieren wir W
+        W = np.zeros((len(vectors_en[0]), len(vectors_de[0])))
+        b = np.zeros((len(vectors_en[0])))
+
+        for j in xrange(len(vectors_en[0])):
+            y_j = [x[j] for x in vectors_en]
+            
+            if model == "ridge":
+                clf = linear_model.Ridge(alpha)
+            elif model == "net":
+                clf = linear_model.ElasticNet(alpha)
+            else:
+                clf = linear_model.Lasso(alpha)
+
+            clf.fit(X,y_j)
+            W[j] = clf.coef_
+            b[j] = clf.intercept_
+
+        self.Models.append(TransformationMatrix(W, b, model, alpha))
+
+    def createTransformationMatrix_2(self, model="Lasso", alpha=0.1):
         """Creates a transformation matrix using the provided model and alpha
         value. Possible models are:
 
@@ -204,44 +197,32 @@ class VectorTransformator(object):
 
         return TransformationResults
 
-    def learn_matrix(self, model="Lasso", alpha=0.1):
+    def translate(self, word, index=0):
+        """Takes a word from vector Space V, maps it into W and returns the
+        closest vector in W.
+        """
 
-        subDict = [s for s in self.Dictionary if s in self.V and self.Dictionary[s] in self.W]
+        v = self.V[word]
+        translatedWord = v * self.Model[index]
 
-        vectors_de = [self.V[word] for word in subDict]
-        vectors_en = [self.W[self.Dictionary[word]] for word in subDict]
+        res = []
+        for vector in self.W:
+            res.append(calculateAngle(word, vector))
 
-        X = np.zeros((len(vectors_de), len(vectors_de[0])))
+        i = res.index(min(res))
 
-        for i, v in enumerate(vectors_de):
-            X[i]=v
-        
-        Y = np.zeros((len(vectors_en), len(vectors_en[0])))
-        
-        for i, v in enumerate(vectors_en):
-            Y[i]=v
+        return self.W[i]
 
-        # jetzt konstruieren wir W
-        W = np.zeros((len(vectors_en[0]), len(vectors_de[0])))
-        b = np.zeros((len(vectors_en[0])))
-
-        for j in xrange(len(vectors_en[0])):
-            y_j = [x[j] for x in vectors_en]
-            
-            if model == "ridge":
-                clf = linear_model.Ridge(alpha)
-            elif model == "net":
-                clf = linear_model.ElasticNet(alpha)
+    def calculateAngle(self, v, w):
+        c = np.dot(v, w)/norm(v)/norm(w) # -> cosine of the angle
+        angle = arccos(c) # if you really want the angle
+        if np.isnan(angle):
+            if (v == w).all():
+                return 0.0
             else:
-                clf = linear_model.Lasso(alpha)
+                return np.pi
 
-            clf.fit(X,y_j)
-            W[j] = clf.coef_
-            b[j] = clf.intercept_
-
-
-        print b
-        self.Models.append(tm(W, b, model, alpha))
+        return angle
 
     def prepareVector(self, v):
         """Prepares a vector in the following format:
@@ -282,27 +263,3 @@ class VectorTransformator(object):
 
     def __getitem__(self, index):
         return self.Models[index]
-
-if __name__ == "__main__":
-    vt = VectorTransformator("../opt/dict.txt", "../opt/de_vectors.txt", "../opt/en_vectors.txt")
-    vt.createTransformationMatrix()
-    wt = VectorTransformator("../opt/dict.txt", "../opt/de_vectors.txt", "../opt/en_vectors.txt")
-    wt.learn_matrix("Lasso", 0.01)
-    
-    print "alt"
-    print vt * vt.V["esel"]
-    print "neu"
-    print wt * wt.V["esel"]
-    # print wt * wt.V["baum"]
-
-    # X = wt.learn_matrix("Lasso", 0.01)
-    # print "_________####___"
-    # v = np.transpose(np.matrix(wt.V["apfel"]))
-    # y = X[0] * v
-    # c = np.transpose(np.matrix(X[1]))
-    # print c
-    # print y
-    # print "___"
-    # print y + c
-
-
