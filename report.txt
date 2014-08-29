@@ -1,0 +1,66 @@
+Dennis Ulmer 
+Sebastian Spaar
+Begleitveranstaltung zum Softwareprojekt
+Sommersemester 2014 
+Universität Heidelberg
+
+
+„CrOssinG“
+==========
+
+Comparing of Anglicisms in German
+---------------------------------
+
+Abstract
+========
+
+CrOssinG’s main functionality is the creation of transformation matrices from one vector space to another. When using vector data provided by other programs such as word2vec, these vector spaces represent a language model of a given language. CrOssinG is then able to translate a word from German, for instance, to English. In our software project, CrOssinG was used to analyze the semantic change of anglicisms found in the German language.
+
+Prerequisites
+=============
+
+Two major resources were needed for CrOssinG: A large corpus in German and English language to extract two vector space models using word2vec, and a German-English dictionary. The dictionary tells CrOssing a standard translation of a word. During the creation process of a transformation matrix, CrOssinG tries to map the word vector of a German word onto the translated word in the English vector space model.
+
+Additionally, information on the use and extent of anglicisms in German was needed.
+
+Extraction of a German/English language model
+=============================================
+
+For an adequate representation of the German and English language, we decided on the broad Wikipedia corpus for the use with word2vec. Since Wikipedia’s corpus is freely available as an XML dump, we only needed to extract the plain text data from it. For this task, we ran a slightly simplified version of Wikipedia Extractor on both an English and German Wikipedia dump. After the extraction of plain words, two files of about 1 GB size each were left, containing all the article text found in the German/English Wikipedia.
+
+After the extraction, word2vec could be used on the plain text corpus. For each corpus, word2vec provided a file containing a large amount of word vectors. These word vectors represent a language model found in that corpus, and—within the nature of vector data—can be used for further analysis and calculations within that vector space model.
+
+Due to the big size of the corpus, its word vector file contained several thousands of words, and processing the vector file within Python was time-consuming. For this reason, we used Python’s module cPickle to quickly save and load the vector space data throughout our tests.
+
+Extraction of a German-English dictionary
+=========================================
+
+…
+
+Creation of a transformation matrix
+===================================
+
+Given two vector space models for the German and English language, say V and W, each v ∈ V and w ∈ W is a word represented by the vector that was calculated from word2vec. We know from the aforementioned that dictionary that for most v ∈ V, there is a w ∈ W such that w is the translation of v, meaning that translation(v) = w.
+
+It is our goal to find a transformation matrix T such that for every v ∈ V, T × v = translation(v) = w, or in short terms: Tv = w.
+
+We used the Python package scikit-learn for the calculation of such matrix T. First, we looked for the intersection of all words from both the German and English language model and the words from the dictionary. This way we operated on a subset of German words that were sure to have a translation within the English language model. Using scikit-learn’s linear regression model, we then iterated over each German word and constructed a sample transformation matrix step by step:
+
+
+
+
+Results
+=======
+
+(Tabelle/Text mit den Ergebnissen über die Anglizismen)
+
+Conclusion
+==========
+
+
+
+  https://code.google.com/p/word2vec/
+￼ https://dumps.wikimedia.org
+￼ http://medialab.di.unipi.it/wiki/Wikipedia_Extractor
+￼ 95208 words for the German language model, and 68408 for the English model.
+￼ http://scikit-learn.org/stable/
