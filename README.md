@@ -50,9 +50,9 @@ open a Python interpreter and import it:
 
     >>> import crossing
 
-There is some example data prepared in the `opt/` directory:
+There is some example data prepared in the `share/` directory:
 
-    opt
+    share
     ├── de.txt
     ├── de_dummy.txt
     ├── de_vectors.txt
@@ -67,7 +67,7 @@ particular interest. They are based on the corpus "Town Musicians of Bremen"
 found in `de.txt/en.txt`. Let's create a `VectorTransformator` object that will
 represent vector transformations from German to English using `dict.txt`:
 
-    >>> vt = crossing.VectorManager.VectorTransformator("opt/dict.txt", "opt/de_vectors.txt", "opt/en_vectors.txt")
+    >>> vt = crossing.VectorManager.VectorTransformator("share/dict.txt", "share/de_vectors.txt", "share/en_vectors.txt")
 
 `VectorTransformator` only wraps several transformation matrices. This way you
 could compare different transformation models and different accuracies. We now 
@@ -106,5 +106,5 @@ reason might be that the information provided by `word2vec` is not useful for cr
 a vector space model of a language, since `word2vec` is more of a straightforward
 approach of representing words by a numerical value.
 
-Using dummy data, like the `_dummy` files found in `opt/`, creating transformation
+Using dummy data, like the `_dummy` files found in `share/`, creating transformation
 matrices works fine.
