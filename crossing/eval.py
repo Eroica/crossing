@@ -45,13 +45,13 @@ def main():
 	wh("\t\tCrOssinG: CompaRing Of AngliciSmS IN German", 75)
 
 	### nicht vergessen die pfade zu ändern
-	dictionary = readDictionary("../res/out/dictEntries.txt")
-	anglicisms = readTupleFile("../res/out/anglicisms.txt")
-	devectors = pickle.load(open("../tmp/DE_VEC.bin"))
-	envectors = pickle.load(open("../tmp/EN_VEC.bin"))
+	dictionary = readDictionary("../res/dictEntries.txt")
+	anglicisms = readTupleFile("../res/anglicisms.txt")
+	devectors = pickle.load(open("../res/DE_VEC.bin"))
+	envectors = pickle.load(open("../res/EN_VEC.bin"))
 	# devectors = readVectorFileToDict("../res/out/de_small2.txt")
 	# envectors = readVectorFileToDict("../res/out/en_small2.txt")
-	false_friends = readTupleFile("../res/out/false_friends.txt")
+	false_friends = readTupleFile("../res/false_friends.txt")
 
 	# alphas = [0.0001, 0.0002, 0.001, 0.002, 0.01, 0.02, 0.1, 0.2]
 	# models = ["ridge", "net", "Lasso"]
@@ -62,14 +62,11 @@ def main():
 	w("Creating VectorTransformators...\n")
 
 	### zuallererst ein VectorTransformator-Objekt, das mehrere Modelle halten kann
-	vt = VectorManager.VectorTransformator()
+	vt = VectorManager.VectorTransformator("../res/dictEntries.txt", "../res/DE_VEC.bin", "../res/EN_VEC.bin")
 	### da die nötigen vektoren schon oben erzeugt wurden, werden keine dateien übergeben
 	### stattdessen müssen die vektoren separat in das objekt gespeichert werden.
 	### änder den namen von dem deutsch-englisch wörterbuch (dictionary) am besten
 	### in etwas anderes um, sonst ist es zu ähnlich an dem python-objekt "dict"
-	vt.Dictionary = dictionary
-	vt.V = devectors
-	vt.W = envectors
 
 	for tuple_ in model_paras:
 		### transformations-matrix mit der methode createTransformationMatrix() erstellen
