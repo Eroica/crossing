@@ -14,8 +14,9 @@
 
 """scrn_out.py:
 
-   This module just simplifies screen output in other modules.
-   """
+This module just simplifies screen output in other modules.
+
+"""
 
 #-------------------------------- Imports -------------------------------------
 

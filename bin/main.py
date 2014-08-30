@@ -14,9 +14,10 @@
 
 """main.py
 
-    This is a meta-script which contains every process of data-preparation 
-    for CrOssinG.
-    """
+This is a meta-script which contains every process of data-preparation 
+for CrOssinG.
+
+"""
 
 #--------------------------------- Imports ------------------------------------
 

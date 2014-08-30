@@ -14,9 +14,10 @@
 
 """false_friends.py:
 
-    This module extracts false-friend-pairs from the
-    "Liste falscher Freunde - Wikipedia".html file.
-    """
+This module extracts false-friend-pairs from the
+"Liste falscher Freunde - Wikipedia".html file.
+
+"""
 
 #-------------------------------- Imports -------------------------------------
 

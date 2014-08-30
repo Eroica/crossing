@@ -14,14 +14,15 @@
 
 """dict_extract.py:
 
-    This module extracts the dict.cc entries of a .txt-file.
-    Check out dict.cc here: http://www.dict.cc/
-    Download the vocabulary database here: 
-    http://www1.dict.cc/translation_file_request.php
+This module extracts the dict.cc entries of a .txt-file.
+Check out dict.cc here: http://www.dict.cc/
+Download the vocabulary database here: 
+http://www1.dict.cc/translation_file_request.php
 
-    The programs extracts every information for every entry stored in 
-    'dict_cc_entries.txt' and returns them as an array of tuples.
-    """
+The programs extracts every information for every entry stored in 
+'dict_cc_entries.txt' and returns them as an array of tuples.
+
+"""
 
 #-------------------------------- Imports -------------------------------------
 

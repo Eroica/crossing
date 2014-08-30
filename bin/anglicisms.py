@@ -13,13 +13,15 @@
 # ++++++++++++++++++++++++++++++++++++++++++++++
 
 """anglicisms.py:
-   This module extracts anglicisms from the online wikipedia wictionary.
-   (Check it out here: https://www.wiktionary.org/)
 
-   The program looks into the html-code and checks if an anglicisms has an own
-   entry in the wictionary. If so, it will search in it for a 
-   german translation.
-   """
+This module extracts anglicisms from the online wikipedia wictionary.
+(Check it out here: https://www.wiktionary.org/)
+
+The program looks into the html-code and checks if an anglicisms has an own
+entry in the wictionary. If so, it will search in it for a 
+german translation.
+
+"""
 
 #-------------------------------- Imports -------------------------------------
 

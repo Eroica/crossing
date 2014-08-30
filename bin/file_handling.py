@@ -14,10 +14,11 @@
 
 """ file_handling.py:
 
-    This module contains all methods needed for file handling of any kind, 
-    which means writing files in different forms as well as
-    reading them into differed formats.
-    """
+This module contains all methods needed for file handling of any kind, 
+which means writing files in different forms as well as
+reading them into differed formats.
+
+"""
 
 #-------------------------------- Imports -------------------------------------
 

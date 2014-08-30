@@ -14,9 +14,10 @@
 
 """filter.py:
 
-    This module is used to filter out unwanted data in dict.cc-entries, 
-    false-friend-pairs or anglicisms.
-    """
+This module is used to filter out unwanted data in dict.cc-entries, 
+false-friend-pairs or anglicisms.
+
+"""
 
 #------------------------------------ Imports ---------------------------------
 
