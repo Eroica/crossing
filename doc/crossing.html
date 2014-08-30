@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="crossing 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="anglicisms" href="scripts.html" />
     <link rel="prev" title="Welcome to crossing’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -36,6 +37,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="scripts.html" title="anglicisms"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to crossing’s documentation!"
              accesskey="P">previous</a> |</li>
@@ -50,6 +54,10 @@
             
   <div class="section" id="module-VectorManager">
 <span id="crossing"></span><h1>crossing<a class="headerlink" href="#module-VectorManager" title="Permalink to this headline">¶</a></h1>
+<p>VectorManager.py</p>
+<p>This module serves two objects: VectorTransformator and TransformationMatrix.
+VectorTransformator holds several TransformationMatrix objects that operate
+on the language data provided by VectorTransformator.</p>
 <dl class="class">
 <dt id="VectorManager.TransformationMatrix">
 <em class="property">class </em><tt class="descclassname">VectorManager.</tt><tt class="descname">TransformationMatrix</tt><big>(</big><em>T</em>, <em>b</em>, <em>model</em>, <em>alpha</em><big>)</big><a class="headerlink" href="#VectorManager.TransformationMatrix" title="Permalink to this definition">¶</a></dt>
@@ -65,12 +73,12 @@ vector space V into vector space W, using the dictionary in self.Dictionary.
 self.V and self.W are dictionaries that contain vectors in the following
 format:</p>
 <blockquote>
-<div>&#8220;word&#8221; = [0.1, 0.2, 0.3, ...]</div></blockquote>
+<div>{&#8220;word&#8221; = [0.1, 0.2, 0.3, ...]}</div></blockquote>
 <p>self.Models contains all transformation matrices that can be used to
-transform a given vector by using the overridden <a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">*</span></a>&#8216;&#8217; operator.</p>
-<p>When given a vector <a href="#id5"><span class="problematic" id="id6">``</span></a>v&#8217;&#8216;, the default behaviour of <a href="#id7"><span class="problematic" id="id8">``</span></a>VectorTransformator&#8217;&#8217;
-is to return a tuple containing the result of <a href="#id9"><span class="problematic" id="id10">``</span></a>v&#8217;&#8217; multiplicated with all
-models from self.Models. If only a single model should be used, the <a href="#id11"><span class="problematic" id="id12">``</span></a>[]&#8217;&#8217;
+transform a given vector by using the overridden <tt class="docutils literal"><span class="pre">*</span></tt> operator.</p>
+<p>When given a vector <tt class="docutils literal"><span class="pre">v</span></tt>, the default behaviour of <tt class="docutils literal"><span class="pre">VectorTransformator</span></tt>
+is to return a tuple containing the result of <tt class="docutils literal"><span class="pre">v</span></tt> multiplicated with all
+models from self.Models. If only a single model should be used, the <tt class="docutils literal"><span class="pre">[]</span></tt>
 operator can be used to select that model.</p>
 <dl class="method">
 <dt id="VectorManager.VectorTransformator.createTransformationMatrix_2">
@@ -123,6 +131,9 @@ is provided, the results will be written into that file.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to crossing&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scripts.html"
+                        title="next chapter">anglicisms</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/crossing.txt"
@@ -154,6 +165,9 @@ is provided, the results will be written into that file.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="scripts.html" title="anglicisms"
+             >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to crossing’s documentation!"
              >previous</a> |</li>

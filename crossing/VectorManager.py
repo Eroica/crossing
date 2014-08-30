@@ -54,14 +54,14 @@ class VectorTransformator(object):
     self.V and self.W are dictionaries that contain vectors in the following
     format:
 
-        "word" = [0.1, 0.2, 0.3, ...]
+        {"word" = [0.1, 0.2, 0.3, ...]}
 
     self.Models contains all transformation matrices that can be used to
-    transform a given vector by using the overridden ``*'' operator.
+    transform a given vector by using the overridden ``*`` operator.
 
-    When given a vector ``v'', the default behaviour of ``VectorTransformator''
-    is to return a tuple containing the result of ``v'' multiplicated with all
-    models from self.Models. If only a single model should be used, the ``[]''
+    When given a vector ``v``, the default behaviour of ``VectorTransformator``
+    is to return a tuple containing the result of ``v`` multiplicated with all
+    models from self.Models. If only a single model should be used, the ``[]``
     operator can be used to select that model.
     """
 
