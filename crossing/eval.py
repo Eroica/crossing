@@ -62,7 +62,7 @@ def main():
 	w("Creating VectorTransformators...\n")
 
 	### zuallererst ein VectorTransformator-Objekt, das mehrere Modelle halten kann
-	vt = VectorManager.VectorTransformator("../res/dictEntries.txt", "../res/DE_VEC.bin", "../res/EN_VEC.bin")
+	vt = VectorManager.VectorTransformator()
 	### da die nötigen vektoren schon oben erzeugt wurden, werden keine dateien übergeben
 	### stattdessen müssen die vektoren separat in das objekt gespeichert werden.
 	### änder den namen von dem deutsch-englisch wörterbuch (dictionary) am besten
