@@ -66,7 +66,8 @@ class VectorTransformator(object):
     """
 
     def __init__(self):
-        """If no files are specified when creating a VectorTransformator,
+        """A ``VectorTransformator`` object holds several transformation
+        matrices If no files are specified when creating a VectorTransformator,
         self.Dictionary, self.V and self.W have to be filled with dictionaries.
         """
         self.Dictionary = {}
@@ -74,24 +75,19 @@ class VectorTransformator(object):
         self.V = {}
         self.W = {}
 
-    def __init__(self, dict_file, vector1_file, vector2_file, isWord2Vec=True):
-        """Creates a ``VectorTransformator'' using the provided files. By
-        default, ``VectorTransformator'' assumes to work with files from
-        ``word2vec''.
-        """
-        
-        self.Dictionary = FileManager.readDictionary(dict_file)
-        self.Models = []        # consists of all transformation matrices
-
-        if isWord2Vec:
-            self.V = FileManager.readWord2Vec(vector1_file)
-            self.W = FileManager.readWord2Vec(vector2_file)
-        else:
-            self.V = FileManager.readVectors(vector1_file)
-            self.W = FileManager.readVectors(vector2_file)
-
     def createTransformationMatrix(self, model="Lasso", alpha=0.1):
+        """Creates a transformation matrix using the provided model and alpha
+        value. Possible models are:
 
+            *   "Lasso" for linear_model.Lasso,
+            *   "ridge" for linear_model.Ridge,
+            *   "net" for linear_model.ElasticNet
+        """
+
+        # The transformation matrix is calculated using the following vectors:
+        # Vectors of V that also appear in language 1 in the word dictionary AND
+        # that have a translation, according to the dictionary, found in Vector
+        # space W.
         subDict = [s for s in self.Dictionary if s in self.V and self.Dictionary[s] in self.W]
 
         vectors_de = [self.V[word] for word in subDict]
@@ -107,7 +103,6 @@ class VectorTransformator(object):
         for i, v in enumerate(vectors_en):
             Y[i]=v
 
-        # jetzt konstruieren wir W
         W = np.zeros((len(vectors_en[0]), len(vectors_de[0])))
         b = np.zeros((len(vectors_en[0])))
 
@@ -127,62 +122,11 @@ class VectorTransformator(object):
 
         self.Models.append(TransformationMatrix(W, b, model, alpha))
 
-    def createTransformationMatrix_2(self, model="Lasso", alpha=0.1):
-        """Creates a transformation matrix using the provided model and alpha
-        value. Possible models are:
-
-            *   "Lasso" for linear_model.Lasso,
-            *   "ridge" for linear_model.Ridge,
-            *   "net" for linear_model.ElasticNet
-        """
-
-        if model == "ridge":
-            clf = linear_model.Ridge(alpha)
-        elif model == "net":
-            clf = linear_model.ElasticNet(alpha)
-        else:
-            clf = linear_model.Lasso(alpha)
-
-        m = len(self.V.values()[0])
-        X = []
-        Y = []
-        T = []
-        b = []
-
-
-        # The transformation matrix is calculated using the following vectors:
-        # Vectors of V that also appear in language 1 in the word dictionary AND
-        # that have a translation, according to the dictionary, found in Vector
-        # space W.
-        subDict = [s for s in self.Dictionary if s in self.V and self.Dictionary[s] in self.W]
-
-        for word in subDict:
-            X.append(self.V[word])
-            Y.append(self.W[self.Dictionary[word]])
-
-        if len(X) == len(Y):
-            if len(map(list, zip(*X))) == len(map(list, zip(*Y))):
-                print "X, Y are aligned!"
-
-        Yt = map(list, zip(*Y))
-
-        for i in xrange(0, m):
-            print "Starting fit with Yt[" + str(i) + "] = " + str(Yt[i])
-            clf.fit(X, Yt[i])
-            row = []
-            for j in clf.coef_:
-                row.append(j)
-            T.append(row)
-            b.append(clf.intercept_)
-
-        self.Models.append(TransformationMatrix(T, b, model, alpha))
-
     def translateAllVectors(self, intoFile=None):
         """Using all vector transformation matrices found in self.Models,
         attemps to translate all vectors from self.V into self.W. If a filename
         is provided, the results will be written into that file.
         """
-
         
         TransformationResults = {}
         VectorResults = {}
@@ -246,7 +190,7 @@ class VectorTransformator(object):
         """Attempts to translate a word from one vector space to another, using
         all models found in self.Models.
 
-        ``word'' can either be
+        ``word`` can either be
 
             *   a word found in self.V so that its components from self.V are
                 used or
