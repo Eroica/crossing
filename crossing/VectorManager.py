@@ -12,6 +12,14 @@
 #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+"""VectorManager.py
+
+This module serves two objects: VectorTransformator and TransformationMatrix.
+VectorTransformator holds several TransformationMatrix objects that operate
+on the language data provided by VectorTransformator.
+
+"""
+
 from sklearn import linear_model
 import numpy as np
 import FileManager

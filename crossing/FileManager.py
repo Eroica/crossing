@@ -12,6 +12,14 @@
 #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+"""FileManager.py
+
+This module's functions is used by VectorManager to read dictionary and vector
+data from files. Those files serve the data that is used later for matrix
+transformation of vector space models.
+
+"""
+
 import sys
 
 def readDictionary(dict_file):
