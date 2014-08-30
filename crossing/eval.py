@@ -14,8 +14,8 @@
 
 """ eval.py:
 
-	This module is the final step of CrOssinG, evaluating the results.
-	"""
+This module is the final step of CrOssinG, evaluating the results.
+"""
 
 #-------------------------------- Imports -------------------------------------
 

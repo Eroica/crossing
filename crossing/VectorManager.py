@@ -22,7 +22,6 @@ on the language data provided by VectorTransformator.
 
 from sklearn import linear_model
 import numpy as np
-import FileManager
 import sys
 
 class TransformationMatrix(object):
