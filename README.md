@@ -19,12 +19,10 @@ compared to the original English word (hence, *"CrOssinG"* -- CompaRing Of Angli
 Vector space models were created by using [`word2vec`](https://code.google.com/p/word2vec/)
 on an English and German Wikipedia dump, that were converted to plaintext characters
 beforehand using a slightly altered version of [`WikiExtractor.py`](http://medialab.di.unipi.it/wiki/Wikipedia_Extractor).
+These tools can be found in the `opt/` directory.
 
 Many thanks to [http://www.dict.cc](http://www.dict.cc) that provided us with a
 German-English dictionary.
-
-The original data and scripts that were used can be found in the `bin/` and `res/`
-directories.
 
 Installation
 ------------
