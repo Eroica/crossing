@@ -63,13 +63,28 @@ There is some example data prepared in the `share/` directory:
 Of these files, `de_vectors.txt`, `en_vectors.txt` and `dict.txt` are of
 particular interest. They are based on the corpus "Town Musicians of Bremen"
 found in `de.txt/en.txt`. Let's create a `VectorTransformator` object that will
-represent vector transformations from German to English using `dict.txt`:
+serve sevel vector transformation matrices:
 
-    >>> vt = crossing.VectorManager.VectorTransformator("share/dict.txt", "share/de_vectors.txt", "share/en_vectors.txt")
+    >>> vt = crossing.VectorManager.VectorTransformator()
 
-`VectorTransformator` only wraps several transformation matrices. This way you
-could compare different transformation models and different accuracies. We now 
-need to create a transformation matrix -- by default, `sklearn.Linear_Model.Lasso`
+We have to fill our `vt` object with some language data. `vt` has three variables
+that need to be filled: `vt.V` and `vt.W` represent two vector spaces, and
+`vt.Dictionary` contains the translation of the words found in `vt.V` to `vt.W`.
+For this example, use the data found in the `share/` directory and load them
+into `vt` using the functions of `FileManager.py`:
+
+    >>> vt.Dictionary = FileManager.readDictionary("../share/dict.txt")
+    >>> vt.V = FileManager.readWord2Vec("../share/de_vectors.txt")
+    >>> vt.W = FileManager.readWord2Vec("../share/en_vectors.txt")
+
+(Since we are working with `word2vec` data, `FileManager.readWord2Vec()` is used.
+However, you could pass every dictionary in the following format to `vt.V/W`:)
+
+    {"word" = [1.0, 2.0, 3.0, ...], "another" = [0.1, 0.2, 0.3, ...], ...}
+
+Remember that `VectorTransformator` only wraps several transformation matrices.
+This way you could create different transformation models and compare their
+accuracies. Let's create a transformation matrix now -- by default, `sklearn.Linear_Model.Lasso`
 with `alpha = 0.1` is used (refer to the `docstring` to see other models):
 
     >>> vt.createTransformationMatrix()
