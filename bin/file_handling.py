@@ -190,19 +190,19 @@ def writeTupleFile(tuples, output_file, separation_character="\t",
     wil("Writing file %s...Complete!" %(output_file), 50, "\n")
     file.close()
 
-def dumpObject(self, object_, name=None):
+def dumpObject(self, obj, name=None):
         """Takes an object as an argument and dumps its content on disk using
         specified "name" as its file name. If no file name is specified,
-        repr(object_) will instead be used.
+        that object's __repr__ will be used instead.
         """
         try:
             with open(name, "wb") as output_file:
-                pickle.dump(object_, output_file, -1)
-            print "Successfully dumped " + object_ + " into " + name + "."
+                pickle.dump(obj, output_file, -1)
+            print "Successfully dumped " + obj + " into " + name + "."
         except IOError:
-            with open(repr(object_), "wb") as output_file:
-                pickle.dump(object_, output_file, -1)
-            print "Successfully dumped " + object_ + \
-                  " into " + repr(object_) + "."
+            with open(repr(obj), "wb") as output_file:
+                pickle.dump(obj, output_file, -1)
+            print "Successfully dumped " + obj + \
+                  " into " + repr(obj) + "."
 
 

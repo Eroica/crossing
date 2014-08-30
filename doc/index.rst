@@ -6,11 +6,14 @@
 Welcome to crossing's documentation!
 ====================================
 
-Contents:
+In addition to crossing's documentation, this page also contains the documentation
+of the scripts that were used together with crossing during the 2014 software project:
 
 .. toctree::
    :maxdepth: 2
 
+   crossing
+   scripts
 
 
 Indices and tables

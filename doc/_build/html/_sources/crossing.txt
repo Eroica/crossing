@@ -1,2 +1,5 @@
+crossing
+********
+
 .. automodule:: VectorManager
    :members:

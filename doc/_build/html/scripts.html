@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>anglicisms &mdash; crossing 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="crossing 0.1.0 documentation" href="index.html" />
+    <link rel="prev" title="crossing" href="crossing.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="crossing.html" title="crossing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">crossing 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-anglicisms">
+<span id="anglicisms"></span><h1>anglicisms<a class="headerlink" href="#module-anglicisms" title="Permalink to this headline">¶</a></h1>
+<p>anglicisms.py:
+This module extracts anglicisms from the online wikipedia wictionary.
+(Check it out here: <a class="reference external" href="https://www.wiktionary.org/">https://www.wiktionary.org/</a>)</p>
+<p>The program looks into the html-code and checks if an anglicisms has an own
+entry in the wictionary. If so, it will search in it for a 
+german translation.</p>
+<dl class="function">
+<dt id="anglicisms.generateEntries">
+<tt class="descclassname">anglicisms.</tt><tt class="descname">generateEntries</tt><big>(</big><em>list</em>, <em>printErrors=True</em><big>)</big><a class="headerlink" href="#anglicisms.generateEntries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates array of tuples (anglicism, wiktionary-link).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="anglicisms.getAnglicismsList">
+<tt class="descclassname">anglicisms.</tt><tt class="descname">getAnglicismsList</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#anglicisms.getAnglicismsList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts a list of anglicisms from a wiktionary page.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="anglicisms.lookUpTranslations">
+<tt class="descclassname">anglicisms.</tt><tt class="descname">lookUpTranslations</tt><big>(</big><em>list</em>, <em>printErrors=True</em><big>)</big><a class="headerlink" href="#anglicisms.lookUpTranslations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Looks up the English translation of an anglicism.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dict_extract">
+<span id="dict-extract"></span><h1>dict_extract<a class="headerlink" href="#module-dict_extract" title="Permalink to this headline">¶</a></h1>
+<p>dict_extract.py:</p>
+<p>This module extracts the dict.cc entries of a .txt-file.
+Check out dict.cc here: <a class="reference external" href="http://www.dict.cc/">http://www.dict.cc/</a>
+Download the vocabulary database here: 
+<a class="reference external" href="http://www1.dict.cc/translation_file_request.php">http://www1.dict.cc/translation_file_request.php</a></p>
+<p>The programs extracts every information for every entry stored in 
+&#8216;dict_cc_entries.txt&#8217; and returns them as an array of tuples.</p>
+<dl class="function">
+<dt id="dict_extract.connectAnnotations">
+<tt class="descclassname">dict_extract.</tt><tt class="descname">connectAnnotations</tt><big>(</big><em>list</em><big>)</big><a class="headerlink" href="#dict_extract.connectAnnotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the parts of the entry in parenthesis because else they get
+split up.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dict_extract.extractDictEntries">
+<tt class="descclassname">dict_extract.</tt><tt class="descname">extractDictEntries</tt><big>(</big><em>lines</em>, <em>printErrors=True</em><big>)</big><a class="headerlink" href="#dict_extract.extractDictEntries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts dictionary entries and returns an array of tuples.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dict_extract.extractParts">
+<tt class="descclassname">dict_extract.</tt><tt class="descname">extractParts</tt><big>(</big><em>dict_string</em><big>)</big><a class="headerlink" href="#dict_extract.extractParts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the different parts of an entry.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-false_friends">
+<span id="false-friends"></span><h1>false_friends<a class="headerlink" href="#module-false_friends" title="Permalink to this headline">¶</a></h1>
+<p>false_friends.py:</p>
+<p>This module extracts false-friend-pairs from the
+&#8220;Liste falscher Freunde - Wikipedia&#8221;.html file.</p>
+<dl class="function">
+<dt id="false_friends.extractFalseFriends">
+<tt class="descclassname">false_friends.</tt><tt class="descname">extractFalseFriends</tt><big>(</big><em>lines</em><big>)</big><a class="headerlink" href="#false_friends.extractFalseFriends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts false friends from .txt file.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-file_handling">
+<span id="file-handling"></span><h1>file_handling<a class="headerlink" href="#module-file_handling" title="Permalink to this headline">¶</a></h1>
+<p>file_handling.py:</p>
+<p>This module contains all methods needed for file handling of any kind, 
+which means writing files in different forms as well as
+reading them into differed formats.</p>
+<dl class="function">
+<dt id="file_handling.dumpObject">
+<tt class="descclassname">file_handling.</tt><tt class="descname">dumpObject</tt><big>(</big><em>self</em>, <em>obj</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#file_handling.dumpObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes an object as an argument and dumps its content on disk using
+specified &#8220;name&#8221; as its file name. If no file name is specified,
+that object&#8217;s __repr__ will be used instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.loadDictionary">
+<tt class="descclassname">file_handling.</tt><tt class="descname">loadDictionary</tt><big>(</big><em>self</em>, <em>dict_file</em><big>)</big><a class="headerlink" href="#file_handling.loadDictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a dictionary from the specified file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.loadObject">
+<tt class="descclassname">file_handling.</tt><tt class="descname">loadObject</tt><big>(</big><em>self</em>, <em>name</em><big>)</big><a class="headerlink" href="#file_handling.loadObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a cPickle object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readDictionary">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readDictionary</tt><big>(</big><em>dict_file</em><big>)</big><a class="headerlink" href="#file_handling.readDictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file into a dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readFile">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readFile</tt><big>(</big><em>filename</em>, <em>ignore_character='##########'</em>, <em>onestring=False</em><big>)</big><a class="headerlink" href="#file_handling.readFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readTupleFile">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readTupleFile</tt><big>(</big><em>input_file</em>, <em>separation_character='\t'</em><big>)</big><a class="headerlink" href="#file_handling.readTupleFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a tuple file. Tuples are separated by separation_character.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readTupleFileToDict">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readTupleFileToDict</tt><big>(</big><em>input_file</em>, <em>dicttype</em>, <em>separation_character='\t'</em><big>)</big><a class="headerlink" href="#file_handling.readTupleFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a tuple file into a dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readVectorFile">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readVectorFile</tt><big>(</big><em>word_list</em>, <em>vectors_file</em>, <em>filter=True</em><big>)</big><a class="headerlink" href="#file_handling.readVectorFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a vector file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.readVectorFileToDict">
+<tt class="descclassname">file_handling.</tt><tt class="descname">readVectorFileToDict</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#file_handling.readVectorFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a vector file into a dictionary with word as key.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.writeFile">
+<tt class="descclassname">file_handling.</tt><tt class="descname">writeFile</tt><big>(</big><em>filename</em>, <em>content</em><big>)</big><a class="headerlink" href="#file_handling.writeFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple file writing.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="file_handling.writeTupleFile">
+<tt class="descclassname">file_handling.</tt><tt class="descname">writeTupleFile</tt><big>(</big><em>tuples</em>, <em>output_file</em>, <em>separation_character='\t'</em>, <em>printErrors=True</em><big>)</big><a class="headerlink" href="#file_handling.writeTupleFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enhanced function for writing a tuple file.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-filter">
+<span id="filter"></span><h1>filter<a class="headerlink" href="#module-filter" title="Permalink to this headline">¶</a></h1>
+<p>filter.py:</p>
+<p>This module is used to filter out unwanted data in dict.cc-entries, 
+false-friend-pairs or anglicisms.</p>
+<dl class="function">
+<dt id="filter.arraysIntersect">
+<tt class="descclassname">filter.</tt><tt class="descname">arraysIntersect</tt><big>(</big><em>a1</em>, <em>a2</em><big>)</big><a class="headerlink" href="#filter.arraysIntersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if two array share at least one element.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter.badFormatting">
+<tt class="descclassname">filter.</tt><tt class="descname">badFormatting</tt><big>(</big><em>s</em>, <em>charSet</em><big>)</big><a class="headerlink" href="#filter.badFormatting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if a character from charSet appears in a string s.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter.createRandomSubset">
+<tt class="descclassname">filter.</tt><tt class="descname">createRandomSubset</tt><big>(</big><em>tuples</em>, <em>size</em><big>)</big><a class="headerlink" href="#filter.createRandomSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a random subset of a tuple-array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter.filterTuples">
+<tt class="descclassname">filter.</tt><tt class="descname">filterTuples</tt><big>(</big><em>tuples</em>, <em>task</em>, <em>freq_threshold=0</em>, <em>printOuts=False</em>, <em>filterCode='eebflpswmw'</em><big>)</big><a class="headerlink" href="#filter.filterTuples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters out redundant tuples and multiple word expressions if needed and
+formats the remaining ones.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter.trim">
+<tt class="descclassname">filter.</tt><tt class="descname">trim</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#filter.trim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes whitspaces in a string before and after a word.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter.trimArray">
+<tt class="descclassname">filter.</tt><tt class="descname">trimArray</tt><big>(</big><em>a</em><big>)</big><a class="headerlink" href="#filter.trimArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes entries which are empty strings in an array.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">anglicisms</a></li>
+<li><a class="reference internal" href="#module-dict_extract">dict_extract</a></li>
+<li><a class="reference internal" href="#module-false_friends">false_friends</a></li>
+<li><a class="reference internal" href="#module-file_handling">file_handling</a></li>
+<li><a class="reference internal" href="#module-filter">filter</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="crossing.html"
+                        title="previous chapter">crossing</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/scripts.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="crossing.html" title="crossing"
+             >previous</a> |</li>
+        <li><a href="index.html">crossing 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Dennis Ulmer, Sebastian Spaar.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
