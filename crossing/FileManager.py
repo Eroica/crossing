@@ -51,7 +51,7 @@ def readDictionaryFile(dict_file):
 def readVectorsFile(vectors_file):
     """Reads a text file in the following format:
     word a1 a2 a3 a4
-    (``word'' being the word and everything after it its components)
+    (``word`` being the word and everything after it its components)
     """
 
     vectorDict = {}
@@ -80,12 +80,12 @@ def readWord2VecFile(vectors_file):
 #------------------------------------------------------------------------------
 
 def readDictionary(dict_file):
-    """ Reads a file into a dictionary """
+    """Reads a file into a dictionary."""
     d = [line.split() for line in codecs.open(dict_file, "r", "utf-8")]
     return dict(x for x in d if x)
 
 def readVectorFile(word_list, vectors_file, filter=True):
-    """ Reads a vectorfile """
+    """Reads a vectorfile."""
     w("Reading VectorFile %s..." %(vectors_file))
     D = {}
     fl()
@@ -112,7 +112,7 @@ def readVectorFile(word_list, vectors_file, filter=True):
     return D
 
 def readFile(filename, ignore_character="##########", onestring=False):
-    """ Reads a file """  
+    """Reads a file."""  
     # ignore_character for leaving out redundant lines
     wil("Reading file %s" %(filename))
 
@@ -139,7 +139,7 @@ def readFile(filename, ignore_character="##########", onestring=False):
     return lines
 
 def readTupleFile(input_file, separation_character="\t"):
-    """ Reads a tuple file """  # tuples are separated by separation_character
+    """Reads a tuple file."""  # tuples are separated by separation_character
     lines = readFile(input_file)
     tuples = []
     for line in lines:
@@ -154,7 +154,7 @@ def readTupleFile(input_file, separation_character="\t"):
     return tuples
 
 def readTupleFileToDict(input_file, dicttype, separation_character="\t"):
-    """ Reads a tuple file into a dictionary""" 
+    """Reads a tuple file into a dictionary.""" 
     # Tuples are separated by separation_character
     lines = readFile(input_file)
     dict_ = {}
@@ -176,7 +176,7 @@ def readTupleFileToDict(input_file, dicttype, separation_character="\t"):
     return dict_
 
 def readVectorFileToDict(filename):
-    """ Reads a vector file into a dictionary with word as key """
+    """Reads a vector file into a dictionary with word as key."""
     print "This file %s" %(filename)
     dict_ = defaultdict(list)
     with codecs.open(filename, "r", "utf-8") as f:
@@ -188,7 +188,7 @@ def readVectorFileToDict(filename):
     return dict_
 
 def loadDictionary(self, dict_file):
-    """ Loads a dictionary from ``dict_file''. """
+    """Loads a dictionary from ``dict_file``."""
     try:
         self.dictEntries = dict([line.split() for line in open(dict_file)])
     except IOError:
@@ -198,7 +198,7 @@ def loadDictionary(self, dict_file):
         print "#" + str(len(self.dictEntries)) + " entries in dictionary."
 
 def loadObject(self, name):
-    """ Loads a cPickle object """
+    """Loads a cPickle object."""
     try:
         return cPickle.load(open(name))
     except IOError:
@@ -207,17 +207,16 @@ def loadObject(self, name):
 
 
 def extractPlaintext(self, input_file, unigroups, conc_file=None):
-        """
-        Extracts plaintext data from ``input_file'' with characters only found
-        in the unicode groups specified by ``unigroups''.
-        If ``conf_file'' is specified, the script will concatenate those words
-        with an `_' while parsing.
+        """Extracts plaintext data from ``input_file`` with characters only found
+        in the unicode groups specified by ``unigroups``.
+        If ``conf_file`` is specified, the script will concatenate those words
+        with an `_` while parsing.
         All characters will be converted to lower case.
         """
         def filterCharacters(UNIPRINT):
             """
             A small helper function that deletes those characters not found
-            in the unicode groups defined by ``UNIPRINT''.
+            in the unicode groups defined by ``UNIPRINT``.
             """
             result = []
             for char in line:
@@ -256,7 +255,7 @@ def extractPlaintext(self, input_file, unigroups, conc_file=None):
 #-------------------------------- Writing -------------------------------------
 
 def writeFile(filename, content):
-    """ Simple file writing """
+    """Simple file writing."""
     file = codecs.open(filename, "w", "utf-8")
     for i in xrange(len(content)):
         file.write(content[i])
@@ -264,7 +263,7 @@ def writeFile(filename, content):
 
 def writeTupleFile(tuples, output_file, separation_character="\t", 
                    printErrors=True):
-    """ Enhanced function for writing a tuple file """
+    """Enhanced function for writing a tuple file."""
     file = codecs.open(output_file, "w", "utf-8")
     for i in xrange(len(tuples)):
         percentage = i*1.0/len(tuples)*100
@@ -282,20 +281,19 @@ def writeTupleFile(tuples, output_file, separation_character="\t",
     wil("Writing file %s...Complete!" %(output_file), 50, "\n")
     file.close()
 
-def dumpObject(self, object_, name = None):
-        """
-        Takes an object as an argument and dumps its content on disk using
-        ``name'' as its file name. If no file name is specified, repr(object_)
+def dumpObject(self, obj, name = None):
+        """Takes an object as an argument and dumps its content on disk using
+        ``name`` as its file name. If no file name is specified, repr(object)
         will instead be used.
         """
         try:
             with open(name, "wb") as output_file:
-                pickle.dump(object_, output_file, -1)
-            print "Successfully dumped " + object_ + " into " + name + "."
+                pickle.dump(obj, output_file, -1)
+            print "Successfully dumped " + obj + " into " + name + "."
         except IOError:
-            with open(repr(object_), "wb") as output_file:
-                pickle.dump(object_, output_file, -1)
-            print "Successfully dumped " + object_ + \
-                  " into " + repr(object_) + "."
+            with open(repr(obj), "wb") as output_file:
+                pickle.dump(obj, output_file, -1)
+            print "Successfully dumped " + obj + \
+                  " into " + repr(obj) + "."
 
 

@@ -120,6 +120,111 @@ is provided, the results will be written into that file.</p>
 
 </dd></dl>
 
+<span class="target" id="module-FileManager"></span><p>FileManager.py</p>
+<p>This module&#8217;s functions is used by VectorManager to read dictionary and vector
+data from files. Those files serve the data that is used later for matrix
+transformation of vector space models.</p>
+<dl class="function">
+<dt id="FileManager.dumpObject">
+<tt class="descclassname">FileManager.</tt><tt class="descname">dumpObject</tt><big>(</big><em>self</em>, <em>obj</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#FileManager.dumpObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes an object as an argument and dumps its content on disk using
+<tt class="docutils literal"><span class="pre">name</span></tt> as its file name. If no file name is specified, repr(object)
+will instead be used.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.extractPlaintext">
+<tt class="descclassname">FileManager.</tt><tt class="descname">extractPlaintext</tt><big>(</big><em>self</em>, <em>input_file</em>, <em>unigroups</em>, <em>conc_file=None</em><big>)</big><a class="headerlink" href="#FileManager.extractPlaintext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts plaintext data from <tt class="docutils literal"><span class="pre">input_file</span></tt> with characters only found
+in the unicode groups specified by <tt class="docutils literal"><span class="pre">unigroups</span></tt>.
+If <tt class="docutils literal"><span class="pre">conf_file</span></tt> is specified, the script will concatenate those words
+with an <cite>_</cite> while parsing.
+All characters will be converted to lower case.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.loadDictionary">
+<tt class="descclassname">FileManager.</tt><tt class="descname">loadDictionary</tt><big>(</big><em>self</em>, <em>dict_file</em><big>)</big><a class="headerlink" href="#FileManager.loadDictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a dictionary from <tt class="docutils literal"><span class="pre">dict_file</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.loadObject">
+<tt class="descclassname">FileManager.</tt><tt class="descname">loadObject</tt><big>(</big><em>self</em>, <em>name</em><big>)</big><a class="headerlink" href="#FileManager.loadObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a cPickle object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readDictionary">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readDictionary</tt><big>(</big><em>dict_file</em><big>)</big><a class="headerlink" href="#FileManager.readDictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file into a dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readDictionaryFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readDictionaryFile</tt><big>(</big><em>dict_file</em><big>)</big><a class="headerlink" href="#FileManager.readDictionaryFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a dictionary file in the following format:
+language1   language2</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readFile</tt><big>(</big><em>filename</em>, <em>ignore_character='##########'</em>, <em>onestring=False</em><big>)</big><a class="headerlink" href="#FileManager.readFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readTupleFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readTupleFile</tt><big>(</big><em>input_file</em>, <em>separation_character='\t'</em><big>)</big><a class="headerlink" href="#FileManager.readTupleFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a tuple file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readTupleFileToDict">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readTupleFileToDict</tt><big>(</big><em>input_file</em>, <em>dicttype</em>, <em>separation_character='\t'</em><big>)</big><a class="headerlink" href="#FileManager.readTupleFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a tuple file into a dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readVectorFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readVectorFile</tt><big>(</big><em>word_list</em>, <em>vectors_file</em>, <em>filter=True</em><big>)</big><a class="headerlink" href="#FileManager.readVectorFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a vectorfile.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readVectorFileToDict">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readVectorFileToDict</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#FileManager.readVectorFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a vector file into a dictionary with word as key.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readVectorsFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readVectorsFile</tt><big>(</big><em>vectors_file</em><big>)</big><a class="headerlink" href="#FileManager.readVectorsFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a text file in the following format:
+word a1 a2 a3 a4
+(<tt class="docutils literal"><span class="pre">word</span></tt> being the word and everything after it its components)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.readWord2VecFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">readWord2VecFile</tt><big>(</big><em>vectors_file</em><big>)</big><a class="headerlink" href="#FileManager.readWord2VecFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a word2vec vectors file. A word2vec file is special in the
+sense that the first two lines denote the number of vectors and their
+dimension, and thus can be skipped.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.writeFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">writeFile</tt><big>(</big><em>filename</em>, <em>content</em><big>)</big><a class="headerlink" href="#FileManager.writeFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple file writing.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FileManager.writeTupleFile">
+<tt class="descclassname">FileManager.</tt><tt class="descname">writeTupleFile</tt><big>(</big><em>tuples</em>, <em>output_file</em>, <em>separation_character='\t'</em>, <em>printErrors=True</em><big>)</big><a class="headerlink" href="#FileManager.writeTupleFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enhanced function for writing a tuple file.</p>
+</dd></dl>
+
 </div>
 
 
