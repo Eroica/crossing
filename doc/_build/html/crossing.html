@@ -67,7 +67,7 @@ vector space B.</p>
 
 <dl class="class">
 <dt id="VectorManager.VectorTransformator">
-<em class="property">class </em><tt class="descclassname">VectorManager.</tt><tt class="descname">VectorTransformator</tt><big>(</big><em>dict_file</em>, <em>vector1_file</em>, <em>vector2_file</em>, <em>isWord2Vec=True</em><big>)</big><a class="headerlink" href="#VectorManager.VectorTransformator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">VectorManager.</tt><tt class="descname">VectorTransformator</tt><a class="headerlink" href="#VectorManager.VectorTransformator" title="Permalink to this definition">¶</a></dt>
 <dd><p>A flexible object that can hold several transformation matrices from
 vector space V into vector space W, using the dictionary in self.Dictionary.
 self.V and self.W are dictionaries that contain vectors in the following
@@ -81,8 +81,8 @@ is to return a tuple containing the result of <tt class="docutils literal"><span
 models from self.Models. If only a single model should be used, the <tt class="docutils literal"><span class="pre">[]</span></tt>
 operator can be used to select that model.</p>
 <dl class="method">
-<dt id="VectorManager.VectorTransformator.createTransformationMatrix_2">
-<tt class="descname">createTransformationMatrix_2</tt><big>(</big><em>model='Lasso'</em>, <em>alpha=0.1</em><big>)</big><a class="headerlink" href="#VectorManager.VectorTransformator.createTransformationMatrix_2" title="Permalink to this definition">¶</a></dt>
+<dt id="VectorManager.VectorTransformator.createTransformationMatrix">
+<tt class="descname">createTransformationMatrix</tt><big>(</big><em>model='Lasso'</em>, <em>alpha=0.1</em><big>)</big><a class="headerlink" href="#VectorManager.VectorTransformator.createTransformationMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a transformation matrix using the provided model and alpha
 value. Possible models are:</p>
 <blockquote>

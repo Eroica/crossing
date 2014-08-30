@@ -73,9 +73,9 @@ that need to be filled: `vt.V` and `vt.W` represent two vector spaces, and
 For this example, use the data found in the `share/` directory and load them
 into `vt` using the functions of `FileManager.py`:
 
-    >>> vt.Dictionary = FileManager.readDictionary("../share/dict.txt")
-    >>> vt.V = FileManager.readWord2Vec("../share/de_vectors.txt")
-    >>> vt.W = FileManager.readWord2Vec("../share/en_vectors.txt")
+    >>> vt.Dictionary = crossing.VectorManager.FileManager.readDictionary("share/dict.txt")
+    >>> vt.V = crossing.VectorManager.FileManager.readWord2Vec("share/de_vectors.txt")
+    >>> vt.W = crossing.VectorManager.FileManager.readWord2Vec("share/en_vectors.txt")
 
 (Since we are working with `word2vec` data, `FileManager.readWord2Vec()` is used.
 However, you could pass every dictionary in the following format to `vt.V/W`:)
@@ -92,8 +92,10 @@ with `alpha = 0.1` is used (refer to the `docstring` to see other models):
 Let's have a look at the word `katze` (German for *cat*). Its vector form is,
 in German and English respectively:
 
-    katze 0.006136 -0.052587 0.012688 -0.014030 -0.046991 0.042845 -0.023529 -0.001199 0.034139 -0.003296 
-    cat -0.067114 0.033746 0.020565 0.032246 0.113999 0.016741 -0.021005 0.043264 0.060346 -0.008794 
+    >>> vt.V["katze"]
+    [0.006136, -0.052587, 0.012688, -0.01403, -0.046991, 0.042845, -0.023529, -0.001199, 0.034139, -0.003296]
+    >>> vt.W["cat"]
+    [-0.067114, 0.033746, 0.020565, 0.032246, 0.113999, 0.016741, -0.021005, 0.043264, 0.060346, -0.008794]
 
 We can now see how `crossing` would transform the vector for `katze` into the
 English vector space, using the transformation matrix that was just created:

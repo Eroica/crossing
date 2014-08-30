@@ -37,7 +37,10 @@ It is best used inside the Python interpreter or another script.
 Depending on accuracy and regression model, several transformation matrices
 can be collected in a ``VectorTransformator'' object:
 
-    >>> vt = crossing.VectorManager.VectorTransformator("res/dict.txt", "res/de_vectors.txt", "res/en_vectors.txt")
+    >>> vt = crossing.VectorManager.VectorTransformator()
+
+You have to fill VectorTransformator.V, VectorTransformator.W and
+VectorTransformator.Dictionary with suitable language data.
 
 A transformation matrix can then be created using:
 
