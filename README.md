@@ -73,9 +73,9 @@ that need to be filled: `vt.V` and `vt.W` represent two vector spaces, and
 For this example, use the data found in the `share/` directory and load them
 into `vt` using the functions of `FileManager.py`:
 
-    >>> vt.Dictionary = crossing.VectorManager.FileManager.readDictionary("share/dict.txt")
-    >>> vt.V = crossing.VectorManager.FileManager.readWord2Vec("share/de_vectors.txt")
-    >>> vt.W = crossing.VectorManager.FileManager.readWord2Vec("share/en_vectors.txt")
+    >>> vt.Dictionary = crossing.FileManager.readDictionaryFile("share/dict.txt")
+    >>> vt.V = crossing.FileManager.readWord2VecFile("share/de_vectors.txt")
+    >>> vt.W = crossing.FileManager.readWord2VecFile("share/en_vectors.txt")
 
 (Since we are working with `word2vec` data, `FileManager.readWord2Vec()` is used.
 However, you could pass every dictionary in the following format to `vt.V/W`:)
