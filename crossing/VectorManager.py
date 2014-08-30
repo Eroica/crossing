@@ -112,7 +112,7 @@ class VectorTransformator(object):
                 clf = linear_model.Ridge(alpha)
             elif model == "net":
                 clf = linear_model.ElasticNet(alpha)
-            else:
+            elif mode == "Lasso":
                 clf = linear_model.Lasso(alpha)
 
             clf.fit(X,y_j)
