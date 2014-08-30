@@ -14,8 +14,8 @@
 
 """ eval.py:
 
-This module is the final step of CrOssinG, evaluating the results.
-"""
+	This module is the final step of CrOssinG, evaluating the results.
+	"""
 
 #-------------------------------- Imports -------------------------------------
 
@@ -61,12 +61,10 @@ def main():
 	i = 1
 	w("Creating VectorTransformators...\n")
 
-	### zuallererst ein VectorTransformator-Objekt, das mehrere Modelle halten kann
 	vt = VectorManager.VectorTransformator()
-	### da die nötigen vektoren schon oben erzeugt wurden, werden keine dateien übergeben
-	### stattdessen müssen die vektoren separat in das objekt gespeichert werden.
-	### änder den namen von dem deutsch-englisch wörterbuch (dictionary) am besten
-	### in etwas anderes um, sonst ist es zu ähnlich an dem python-objekt "dict"
+	vt.Dictionary = dictionary
+	vt.V = devectors
+	vt.W = envectors
 
 	for tuple_ in model_paras:
 		### transformations-matrix mit der methode createTransformationMatrix() erstellen
