@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# ++++++++++++++++++++++++++++++++++++++++++++++
 # Authors:
 #
 # Sebastian Spaar <spaar@stud.uni-heidelberg.de>
@@ -10,17 +10,18 @@
 # Project:
 # CrOssinG (CompaRing Of AngliciSmS IN German)
 #
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# ++++++++++++++++++++++++++++++++++++++++++++++
 
-"""FileManager.py
+""" file_handling.py:
 
-This module's functions is used by VectorManager to read dictionary and vector
-data from files. Those files serve the data that is used later for matrix
-transformation of vector space models.
+This module contains all methods needed for file handling of any kind, 
+which means writing files in different forms as well as
+reading them into differed formats.
 
 """
 
-import sys
+#-------------------------------- Imports -------------------------------------
+
 import codecs
 from collections import defaultdict
 import re
@@ -31,62 +32,9 @@ import cPickle as pickle
 
 from scrn_out import w, wil, fl 
 
-def readDictionaryFile(dict_file):
-    """Reads a dictionary file in the following format:
-    language1   language2
-    """
+#----------------------------- Main functions ---------------------------------
 
-    print "Reading dictionary file " + dict_file + " ..."
-    df = []
-
-    try:
-        df = [line.split() for line in open(dict_file)]
-    except IOError:
-        print "Dictionary file could not be found!"
-
-    try:
-        wordDict = dict(x for x in df if x)
-            # in rare cases (depends on Unix/DOS/Mac line endings),
-            # an empty line will be included and appended as ``[]''.
-            # the ``x for x in d if x'' line removes this empty ``[]''.
-    except ValueError:
-        print "Something is wrong with the dictionary file!"
-
-    print "Dictionary consisting of " + str(len(wordDict)) + \
-          " entries."
-
-    return wordDict
-
-def readVectorsFile(vectors_file):
-    """Reads a text file in the following format:
-    word a1 a2 a3 a4
-    (``word`` being the word and everything after it its components)
-    """
-
-    vectorDict = {}
-    with open(vectors_file) as fin:
-        for i, line in enumerate(fin):
-            vector = [x for x in line.split() if x]
-            vectorDict[vector[0]] = [float(x) for x in vector[1:]]
-    
-    return vectorDict
-
-def readWord2VecFile(vectors_file):
-    """Reads a word2vec vectors file. A word2vec file is special in the
-    sense that the first two lines denote the number of vectors and their
-    dimension, and thus can be skipped.
-    """
-
-    vectorDict = {}
-    with open(vectors_file) as fin:
-        for i, line in enumerate(fin):
-            vector = [x for x in line.split() if x]
-            if i > 1:
-                vectorDict[vector[0]] = [float(x) for x in vector[1:]]
-
-    return vectorDict
-
-#------------------------------------------------------------------------------
+#-------------------------------- Reading -------------------------------------
 
 def readDictionary(dict_file):
     """Reads a file into a dictionary."""
@@ -94,7 +42,7 @@ def readDictionary(dict_file):
     return dict(x for x in d if x)
 
 def readVectorFile(word_list, vectors_file, filter=True):
-    """Reads a vectorfile."""
+    """Reads a vector file."""
     w("Reading VectorFile %s..." %(vectors_file))
     D = {}
     fl()
@@ -135,9 +83,9 @@ def readFile(filename, ignore_character="##########", onestring=False):
         wil("Reading File %s - %i lines so far" %(filename, count), 20)
         if not line.startswith(ignore_character):
             lines.append(line)
-    line = file.readline()
-    count += 1
-    fl()
+	line = file.readline()
+	count += 1
+	fl()
     wil("Reading file %s...Complete!" %(filename), 30, "\n")
     if onestring:
         # If result should be one string instead an array of strings
@@ -148,7 +96,7 @@ def readFile(filename, ignore_character="##########", onestring=False):
     return lines
 
 def readTupleFile(input_file, separation_character="\t"):
-    """Reads a tuple file."""  # tuples are separated by separation_character
+    """Reads a tuple file. Tuples are separated by separation_character."""
     lines = readFile(input_file)
     tuples = []
     for line in lines:
@@ -197,7 +145,7 @@ def readVectorFileToDict(filename):
     return dict_
 
 def loadDictionary(self, dict_file):
-    """Loads a dictionary from ``dict_file``."""
+    """Loads a dictionary from the specified file."""
     try:
         self.dictEntries = dict([line.split() for line in open(dict_file)])
     except IOError:
@@ -207,59 +155,12 @@ def loadDictionary(self, dict_file):
         print "#" + str(len(self.dictEntries)) + " entries in dictionary."
 
 def loadObject(self, name):
-    """Loads a cPickle object."""
+    """ Loads a cPickle object """
     try:
         return cPickle.load(open(name))
     except IOError:
         print >> sys.stderr, name + " file could not be found!"
         return None
-
-
-def extractPlaintext(self, input_file, unigroups, conc_file=None):
-        """Extracts plaintext data from ``input_file`` with characters only found
-        in the unicode groups specified by ``unigroups``.
-        If ``conf_file`` is specified, the script will concatenate those words
-        with an `_` while parsing.
-        All characters will be converted to lower case.
-        """
-        def filterCharacters(UNIPRINT):
-            """
-            A small helper function that deletes those characters not found
-            in the unicode groups defined by ``UNIPRINT``.
-            """
-            result = []
-            for char in line:
-                char = unicodedata.category(char) in UNIPRINT and char or u'#'
-                result.append(char)
-            return u"".join(result).replace(u'#', u' ')
-
-        if len(unigroups) % 2 == 1:
-            print >> sys.stderr, "Unicode groups string malformed!"
-            print >> sys.stderr, "Expected: {Ll|Nd|...}"
-            print >> sys.stderr, "Got: " + unigroups
-            return None
-
-        if conc_file is not None:
-            concWords = [line.strip() for line in open(concatenated, "r")]
-
-        UNIPRINT = tuple(re.findall("..", args.unigroups))
-        output_file = "plain_" + input_file
-
-        with open(input_file, "r") as inf:
-            with open(output_file, "w") as outf:
-                for line in inf:
-                    line = filterCharacters(line.decode("utf-8").lower(),
-                                            UNIPRINT)
-                    line = re.sub(" +", " ", line)
-
-                    if conc_file is not None:
-                        if any(word in line for word in concWords):
-                            for word in concatenatedWords:
-                                line = line.replace(word,
-                                                    word.replace(" ", "_"))
-
-                    print >> outf, line.encode("utf-8")
-
 
 #-------------------------------- Writing -------------------------------------
 
@@ -290,10 +191,10 @@ def writeTupleFile(tuples, output_file, separation_character="\t",
     wil("Writing file %s...Complete!" %(output_file), 50, "\n")
     file.close()
 
-def dumpObject(self, obj, name = None):
+def dumpObject(self, obj, name=None):
         """Takes an object as an argument and dumps its content on disk using
-        ``name`` as its file name. If no file name is specified, repr(object)
-        will instead be used.
+        specified "name" as its file name. If no file name is specified,
+        that object's __repr__ will be used instead.
         """
         try:
             with open(name, "wb") as output_file:

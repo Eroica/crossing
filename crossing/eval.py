@@ -28,10 +28,12 @@ import random
 
 import numpy as np
 
-import FileManager
+from file_handling import readTupleFileToDict, readTupleFile, \
+	readVectorFileToDict, readDictionary, readVectorFile
 import cPickle as pickle
 from scrn_out import w, wh, wil, fl, cl
 import VectorManager
+
 
 
 #------------------------------ Main functions --------------------------------
