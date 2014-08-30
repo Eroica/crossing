@@ -25,7 +25,7 @@ from scrn_out import wil, fl
 #----------------------------- Functions --------------------------------------
 
 def extractFalseFriends(lines):
-    """ Extracts false friends from txt-File """
+    """Extracts false friends from .txt file."""
     wil("Extracting False Friends...")
     tuples = []
     array = ["" for i in range(4)]  

@@ -30,8 +30,8 @@ from scrn_out import w, wil, fl
 
 def filterTuples(tuples, task, freq_threshold=0, printOuts=False, 
                 filterCode="eebflpswmw"):
-    """ Filters out redundant tuples and multiple word expressions 
-    if needed and formats the remaining ones.
+    """Filters out redundant tuples and multiple word expressions if needed and
+    formats the remaining ones.
     """
     # Filtercode explanation:
     # The filtercode is a string that determines which filters are applied to 
@@ -369,7 +369,7 @@ def filterTuples(tuples, task, freq_threshold=0, printOuts=False,
     return tuples_new
 
 def createRandomSubset(tuples, size):
-    """ Creates a random subset of a tuple-array """
+    """Creates a random subset of a tuple-array."""
     indices = []
     if size >= len(tuples):
         w("Creating random subset...complete!")
@@ -397,7 +397,7 @@ def createRandomSubset(tuples, size):
 #----------------------------- Helping functions ------------------------------
 
 def trim(s):
-    """ Deletes whitspaces in a string before and after a word """
+    """Deletes whitspaces in a string before and after a word."""
     res = ""
     for i in range(len(s)):
         if i == 0 and s[i] == " ":
@@ -409,18 +409,18 @@ def trim(s):
     return res
 
 def trimArray(a):
-    """ Deletes entries which are empty strings in an array """
+    """Deletes entries which are empty strings in an array."""
     return [e for e in a if e != ""]
 
 def arraysIntersect(a1, a2):
-    """ Tells if two array share at least one element """
+    """Tells if two array share at least one element."""
     for e in a1:
         if e in a2:
             return True
     return False
 
 def badFormatting(s, charSet):
-    """ Tells if a character from charSet appears in a string s """
+    """Tells if a character from charSet appears in a string s."""
     for c in charSet:
         if c in s:
             return True

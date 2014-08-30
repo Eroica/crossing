@@ -35,7 +35,7 @@ from scrn_out import wil, w, wh, fl, cl
 #------------------------------- Main functions -------------------------------
 
 def main():
-    """ Main function to run most parts of CrOssinG """
+    """Main function to run most parts of CrOssinG."""
     cl()
     wh("\t\tCrOssinG: CompaRing Of AngliciSmS IN German", 75)
 

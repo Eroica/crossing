@@ -214,8 +214,8 @@ class VectorTransformator(object):
         return self.W[i]
 
     def calculateAngle(self, v, w):
-        c = np.dot(v, w)/norm(v)/norm(w) # -> cosine of the angle
-        angle = arccos(c) # if you really want the angle
+        c = np.dot(v, w)/norm(v)/norm(w)
+        angle = arccos(c)
         if np.isnan(angle):
             if (v == w).all():
                 return 0.0

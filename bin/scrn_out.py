@@ -25,22 +25,22 @@ import os
 #------------------------------ Main functions --------------------------------
 
 def cl():
-	""" Clears Screen """
+	"""Clears Screen."""
 	clearScreen = ['cls', 'clear'][os.name == 'posix']
 	os.system(clearScreen)
 
 def w(s, whitespaces = 0):
-	""" Writes on screen """
+	"""Writes on screen."""
 	sys.stdout.write("%s%s" %(s, " "*whitespaces))
 
 def wil(s, whitespaces = 0, _finally = ""):
-	""" Writes on screen without beginning a new line plus opt. whitespaces """
+	"""Writes on screen without beginning a new line plus opt. whitespaces."""
 	sys.stdout.write("\r%s%s%s" %(s, " "*whitespaces, _finally))
 
 def wh(h, hyphons = 0):
-	""" Writes a header """
+	"""Writes a header."""
 	sys.stdout.write("%s\n%s\n%s\n\n" %("-"*hyphons, h, "-"*hyphons))
 
 def fl():
-	""" Flushes """
+	"""Flushes."""
 	sys.stdout.flush()

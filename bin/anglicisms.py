@@ -33,7 +33,7 @@ from scrn_out import w, wil, fl
 #----------------------------- Main functions ---------------------------------
 
 def getAnglicismsList(url):
-    """ Extracts a list of anglicisms from a wiktionary page """
+    """Extracts a list of anglicisms from a wiktionary page."""
     anglicisms_list_html = BS(urllib2.urlopen(url)) # Extract the html-code
     # Extracting every relevant section from the html-code
     sections = anglicisms_list_html.find_all("p") 
@@ -59,7 +59,7 @@ def getAnglicismsList(url):
     return entries
 
 def generateEntries(list, printErrors=True):
-    """ Generates array of tuples (anglicism, wiktionary-link) """
+    """Generates array of tuples (anglicism, wiktionary-link)."""
     tuples = []  # Array for tuples (anglicism, wiktionary-link)
     errors = []  
     
@@ -97,7 +97,7 @@ def generateEntries(list, printErrors=True):
     return tuples
 
 def lookUpTranslations(list, printErrors=True):
-    """ Looks up the English translation of an anglicism """
+    """Looks up the English translation of an anglicism."""
     # Array for tuples with format (anglzism, [translation 1, translation2])
     tuples = [] 
     

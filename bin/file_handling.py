@@ -36,12 +36,12 @@ from scrn_out import w, wil, fl
 #-------------------------------- Reading -------------------------------------
 
 def readDictionary(dict_file):
-    """ Reads a file into a dictionary """
+    """Reads a file into a dictionary."""
     d = [line.split() for line in codecs.open(dict_file, "r", "utf-8")]
     return dict(x for x in d if x)
 
 def readVectorFile(word_list, vectors_file, filter=True):
-    """ Reads a vectorfile """
+    """Reads a vector file."""
     w("Reading VectorFile %s..." %(vectors_file))
     D = {}
     fl()
@@ -68,7 +68,7 @@ def readVectorFile(word_list, vectors_file, filter=True):
     return D
 
 def readFile(filename, ignore_character="##########", onestring=False):
-    """ Reads a file """  
+    """Reads a file."""  
     # ignore_character for leaving out redundant lines
     wil("Reading file %s" %(filename))
 
@@ -95,7 +95,7 @@ def readFile(filename, ignore_character="##########", onestring=False):
     return lines
 
 def readTupleFile(input_file, separation_character="\t"):
-    """ Reads a tuple file """  # tuples are separated by separation_character
+    """Reads a tuple file. Tuples are separated by separation_character."""
     lines = readFile(input_file)
     tuples = []
     for line in lines:
@@ -110,7 +110,7 @@ def readTupleFile(input_file, separation_character="\t"):
     return tuples
 
 def readTupleFileToDict(input_file, dicttype, separation_character="\t"):
-    """ Reads a tuple file into a dictionary""" 
+    """Reads a tuple file into a dictionary.""" 
     # Tuples are separated by separation_character
     lines = readFile(input_file)
     dict_ = {}
@@ -132,7 +132,7 @@ def readTupleFileToDict(input_file, dicttype, separation_character="\t"):
     return dict_
 
 def readVectorFileToDict(filename):
-    """ Reads a vector file into a dictionary with word as key """
+    """Reads a vector file into a dictionary with word as key."""
     print "This file %s" %(filename)
     dict_ = defaultdict(list)
     with codecs.open(filename, "r", "utf-8") as f:
@@ -144,7 +144,7 @@ def readVectorFileToDict(filename):
     return dict_
 
 def loadDictionary(self, dict_file):
-    """ Loads a dictionary from ``dict_file''. """
+    """Loads a dictionary from the specified file."""
     try:
         self.dictEntries = dict([line.split() for line in open(dict_file)])
     except IOError:
@@ -161,58 +161,10 @@ def loadObject(self, name):
         print >> sys.stderr, name + " file could not be found!"
         return None
 
-
-def extractPlaintext(self, input_file, unigroups, conc_file=None):
-        """
-        Extracts plaintext data from ``input_file'' with characters only found
-        in the unicode groups specified by ``unigroups''.
-        If ``conf_file'' is specified, the script will concatenate those words
-        with an `_' while parsing.
-        All characters will be converted to lower case.
-        """
-        def filterCharacters(UNIPRINT):
-            """
-            A small helper function that deletes those characters not found
-            in the unicode groups defined by ``UNIPRINT''.
-            """
-            result = []
-            for char in line:
-                char = unicodedata.category(char) in UNIPRINT and char or u'#'
-                result.append(char)
-            return u"".join(result).replace(u'#', u' ')
-
-        if len(unigroups) % 2 == 1:
-            print >> sys.stderr, "Unicode groups string malformed!"
-            print >> sys.stderr, "Expected: {Ll|Nd|...}"
-            print >> sys.stderr, "Got: " + unigroups
-            return None
-
-        if conc_file is not None:
-            concWords = [line.strip() for line in open(concatenated, "r")]
-
-        UNIPRINT = tuple(re.findall("..", args.unigroups))
-        output_file = "plain_" + input_file
-
-        with open(input_file, "r") as inf:
-            with open(output_file, "w") as outf:
-                for line in inf:
-                    line = filterCharacters(line.decode("utf-8").lower(),
-                                            UNIPRINT)
-                    line = re.sub(" +", " ", line)
-
-                    if conc_file is not None:
-                        if any(word in line for word in concWords):
-                            for word in concatenatedWords:
-                                line = line.replace(word,
-                                                    word.replace(" ", "_"))
-
-                    print >> outf, line.encode("utf-8")
-
-
 #-------------------------------- Writing -------------------------------------
 
 def writeFile(filename, content):
-    """ Simple file writing """
+    """Simple file writing."""
     file = codecs.open(filename, "w", "utf-8")
     for i in xrange(len(content)):
         file.write(content[i])
@@ -220,7 +172,7 @@ def writeFile(filename, content):
 
 def writeTupleFile(tuples, output_file, separation_character="\t", 
                    printErrors=True):
-    """ Enhanced function for writing a tuple file """
+    """Enhanced function for writing a tuple file."""
     file = codecs.open(output_file, "w", "utf-8")
     for i in xrange(len(tuples)):
         percentage = i*1.0/len(tuples)*100
@@ -238,11 +190,10 @@ def writeTupleFile(tuples, output_file, separation_character="\t",
     wil("Writing file %s...Complete!" %(output_file), 50, "\n")
     file.close()
 
-def dumpObject(self, object_, name = None):
-        """
-        Takes an object as an argument and dumps its content on disk using
-        ``name'' as its file name. If no file name is specified, repr(object_)
-        will instead be used.
+def dumpObject(self, object_, name=None):
+        """Takes an object as an argument and dumps its content on disk using
+        specified "name" as its file name. If no file name is specified,
+        repr(object_) will instead be used.
         """
         try:
             with open(name, "wb") as output_file:

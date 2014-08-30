@@ -32,7 +32,7 @@ from scrn_out import w, wil, fl
 #------------------------------- Functions ------------------------------------
 
 def extractDictEntries(lines, printErrors=True):
-    """ Extracts dictionary entries and returns an array of tuples """
+    """Extracts dictionary entries and returns an array of tuples."""
     # You can find the entries in the dict.cc-file in following form:
     # Entry {specification} Additional Entry <Abbreviation> 
     # [Comment1] [Comment2] [...]   wordtype
@@ -72,7 +72,7 @@ def extractDictEntries(lines, printErrors=True):
     return tuples
 
 def extractParts(dict_string):
-    """ Extracts the different parts of an entry """
+    """Extracts the different parts of an entry."""
     entry_array = []  # Main entry
     specification = ""  # Specification, e.g. numerus or gender
     additional_entry_array = []  # Additional Entry
@@ -102,8 +102,9 @@ def extractParts(dict_string):
             specification, abbr, comments)  #
 
 def connectAnnotations(list):
-    """ Connects the parts of the entry in parenthesis because 
-    else they get split up. """
+    """Connects the parts of the entry in parenthesis because else they get
+    split up.
+    """
     res_list = []  
     brackets = {"{": "}", "[": "]", "<": ">"}  # Parenthesis
     ongoing = False  # To determine wether a part in brackets is ongoing
